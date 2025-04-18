@@ -13,3 +13,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  data:
+   kafka:
+    port: 6032
+    host: localhost
+   redis:
+     port: 6033
+     host: localhost

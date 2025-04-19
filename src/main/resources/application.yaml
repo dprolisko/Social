@@ -21,3 +21,13 @@ spring:
    redis:
      port: 6033
      host: localhost
+
+services:
+  s3:
+    accesskey: 1111
+    secretkey: 1111
+    bucketname: userbucket
+    endpoint: 1111
+    targetwidth: 1080
+    targetheight: 560
+    maxfilesize: 10

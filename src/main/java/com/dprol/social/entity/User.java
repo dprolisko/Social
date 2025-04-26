@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name= "users")
@@ -43,9 +44,50 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
+
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Skill> listSkill;
+
+    @OneToOne(mappedBy ="user")
+    private Jira jira;
+
+    @OneToOne(mappedBy = "user")
+    private Premium premium;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "fileId", column = @Column(name = "profile_pic_file_id")),
+            @AttributeOverride(name = "smallFileId", column = @Column(name = "profile_pic_small_file_id"))
+    })
+    private UserProfile userProfile;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    @Column(name = "city_id", length = 64)
+    private String city;
+
+    @OneToMany(mappedBy = "inviter_id")
+    private List<GoalInvitation> inviter;
+
+    @OneToMany(mappedBy = "invited_id")
+    private List<GoalInvitation> invited;
+
+    @ManyToMany(mappedBy = "goals")
+    private List<Goal> goals;
+
+    @OneToMany(mappedBy = "user_id")
+    private List<Rating> ratings;
+
+    @OneToMany(mappedBy = "user_id")
+    private List<Contact> contacts;
+
+    @OneToOne(mappedBy = "user_id")
+    private ContactPreference contactPreference;
 }

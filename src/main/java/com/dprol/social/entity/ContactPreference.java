@@ -9,23 +9,19 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table (name ="contact")
+@Table(name = "contact_preference")
 
-public class Contact {
+public class ContactPreference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contact", length = 128, unique = true)
-    private String contact;
-
-    @Column(name = "type", nullable = false)
+    @Column(name = "prefered_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ContactType contactType;
+    private PreferedContactType preferedContactType;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }

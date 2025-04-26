@@ -1,45 +1,49 @@
 package com.dprol.social.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "skills")
 @Getter
 @Setter
 @Builder
+@Table(name = "goal_invitation")
 
-public class Skill {
+public class GoalInvitation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "skillName", length = 32, nullable = false)
-    private String skillName;
+    @ManyToOne
+    @JoinColumn(name = "goal_id")
+    private Goal goal;
+
+    @ManyToOne
+    @JoinColumn(name = "inviter_id")
+    private User Inviter;
+
+    @ManyToOne
+    @JoinColumn(name = "invited_id")
+    private User Invited;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
-    private LocalDateTime createdAt;
+    private LocalDateTime CreatedAt;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updatedAt")
-    private LocalDateTime updatedAt;
+    private LocalDateTime UpdatedAt;
 
-    @ManyToMany
-    @JoinTable(name = "users_skills", joinColumns = @JoinColumn(name="skill_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> user;
-
-    @OneToMany(mappedBy = "user")
-    private List<SkillGuarantee> skillGuarantee;
+    @Column (name = "status")
+    @Enumerated(EnumType.STRING)
+    private GoalStatus status;
 }

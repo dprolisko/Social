@@ -1,7 +1,7 @@
 package com.dprol.social.controller;
 
-import com.dprol.social.dto.UserDto;
-import com.dprol.social.service.UserService;
+import com.dprol.social.dto.user.UserDto;
+import com.dprol.social.service.user.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

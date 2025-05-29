@@ -1,6 +1,6 @@
 package com.dprol.social.repository;
 
-import com.dprol.social.entity.User;
+import com.dprol.social.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

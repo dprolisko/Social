@@ -1,7 +1,7 @@
 package com.dprol.social.mapper;
 
 import com.dprol.social.dto.ContactPreferenceDto;
-import com.dprol.social.entity.ContactPreference;
+import com.dprol.social.entity.contact.ContactPreference;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

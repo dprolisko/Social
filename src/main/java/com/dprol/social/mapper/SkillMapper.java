@@ -1,7 +1,7 @@
 package com.dprol.social.mapper;
 
 import com.dprol.social.dto.SkillDto;
-import com.dprol.social.entity.Skill;
+import com.dprol.social.entity.skill.Skill;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

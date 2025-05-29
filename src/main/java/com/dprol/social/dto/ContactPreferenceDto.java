@@ -1,7 +1,6 @@
 package com.dprol.social.dto;
 
-import com.dprol.social.entity.ContactPreference;
-import com.dprol.social.entity.PreferedContactType;
+import com.dprol.social.entity.contact.ContactPreference;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 

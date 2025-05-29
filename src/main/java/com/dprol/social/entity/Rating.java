@@ -1,5 +1,6 @@
 package com.dprol.social.entity;
 
+import com.dprol.social.entity.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

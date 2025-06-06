@@ -2,8 +2,10 @@ package com.dprol.social.service.subscription;
 
 import com.dprol.social.dto.SubscriptionDto;
 import com.dprol.social.dto.user.UserDto;
+import com.dprol.social.dto.user.UserFilterDto;
 import com.dprol.social.mapper.user.UserMapper;
 import com.dprol.social.repository.SubscriptionRepository;
+import com.dprol.social.service.user.filter.UserFilterService;
 import com.dprol.social.validator.subscription.SubscriptionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final SubscriptionValidator subscriptionValidator;
 
+    private final UserFilterService userFilterService;
+
     @Override
     public void followUser(SubscriptionDto subscriptionDto) {
         subscriptionValidator.validateSubscription(subscriptionDto);
@@ -35,22 +39,24 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<UserDto> getFollowers(Long followeeId) {
-        return List.of();
+    public List<UserDto> getFollowers(Long followeeId, UserFilterDto userFilterDto) {
+        return userFilterService.filterUsers(subscriptionRepository.findByFolloweesId(followeeId), userFilterDto)
+                .map(userMapper::toDto).toList();
     }
 
     @Override
-    public List<UserDto> getFollowings(Long followerId) {
-        return List.of();
+    public List<UserDto> getFollowings(Long followerId, UserFilterDto userFilterDto) {
+        return userFilterService.filterUsers(subscriptionRepository.findByFollowersId(followerId), userFilterDto)
+                .map(userMapper::toDto).toList();
     }
 
     @Override
-    public int getFollowersCount(Long followeeId) {
-        return 0;
+    public int getFollowersCount(Long followerId) {
+        return subscriptionRepository.findByFollowerId(followerId);
     }
 
     @Override
-    public int getFollowingsCount(Long followerId) {
-        return 0;
+    public int getFollowingsCount(Long followeeId) {
+        return subscriptionRepository.findByFolloweeId(followeeId);
     }
 }

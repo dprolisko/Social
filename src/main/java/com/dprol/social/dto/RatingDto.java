@@ -14,5 +14,5 @@ public class RatingDto {
     private Long id;
 
     @NotBlank
-    private  int rating;
+    private int rating;
 }

@@ -1,5 +1,6 @@
 package com.dprol.social.mapper;
 
+import com.dprol.social.dto.PremiumDto;
 import com.dprol.social.entity.Premium;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PremiumMapper {
 
-    @Mapping(source = "id", target = "user.id")
-    Premium toEntity(Long id, LocalDateTime startDataTime, LocalDateTime endDataTime);
+    Premium toEntity(PremiumDto premiumDto);
+
+    Premium toDto(Premium premium);
 }

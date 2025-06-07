@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 
 public class GoalFilterDto {
 
-    private Long goalId;
-
     private String goalName;
 
     private GoalStatus goalStatus;

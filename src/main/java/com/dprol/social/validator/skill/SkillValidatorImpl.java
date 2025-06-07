@@ -15,7 +15,7 @@ public class SkillValidatorImpl implements SkillValidator {
     @Override
     public void validateSkill(SkillDto skillDto) {
         boolean isExist = skillRepository.existsById(skillDto.getId());
-        if (isExist) {
+        if (!isExist) {
             throw new DataValidationException("Skill with id " + skillDto.getId() + " not exists");
         }
         else if (skillDto.getSkillName() == null) {
@@ -29,7 +29,7 @@ public class SkillValidatorImpl implements SkillValidator {
     @Override
     public void validateSkillById(Long skillId) {
         boolean isExist = skillRepository.existsById(skillId);
-        if (isExist) {
+        if (!isExist) {
             throw new DataValidationException("Skill with id " + skillId + " not exists");
         }
     }

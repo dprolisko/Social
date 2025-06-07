@@ -7,11 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public interface GoalRepository extends CrudRepository<Goal, Long> {
 
     Optional<Goal> findGoalById(long id);
+
+    Stream<Goal> findGoalsStream(long id);
 
     Goal createGoal(String title, String description);
 

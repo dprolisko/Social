@@ -16,7 +16,7 @@ public class SubscriptionValidatorImpl implements SubscriptionValidator {
     @Override
     public void validateFollowerAndFollowingId(SubscriptionDto subscriptionDto) {
         boolean isFollower = subscriptionDto.getFollowerId() == subscriptionDto.getFollowingId();
-        if (isFollower) {
+        if (!isFollower) {
             throw new DataValidationException("Follower and following has same ids");
         }
     }
@@ -24,7 +24,7 @@ public class SubscriptionValidatorImpl implements SubscriptionValidator {
     @Override
     public void validateSubscription(SubscriptionDto subscriptionDto) {
         boolean isExists = subscriptionRepository.existsByFollowerId(subscriptionDto.getFollowerId(), subscriptionDto.getFollowingId());
-        if (isExists) {
+        if (!isExists) {
             throw new DataValidationException("Subscription with id " + subscriptionDto.getFollowerId() + " already exists");
         }
     }

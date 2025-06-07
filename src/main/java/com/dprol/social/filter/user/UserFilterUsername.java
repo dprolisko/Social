@@ -1,4 +1,4 @@
-package com.dprol.social.filter;
+package com.dprol.social.filter.user;
 
 import com.dprol.social.dto.user.UserFilterDto;
 import com.dprol.social.entity.user.User;

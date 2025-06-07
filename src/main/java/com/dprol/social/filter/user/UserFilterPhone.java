@@ -1,4 +1,4 @@
-package com.dprol.social.filter;
+package com.dprol.social.filter.user;
 
 import com.dprol.social.dto.user.UserFilterDto;
 import com.dprol.social.entity.user.User;
@@ -8,15 +8,14 @@ import java.util.stream.Stream;
 
 @Component
 
-public class UserFilterEmail implements UserFilter {
-
+public class UserFilterPhone implements UserFilter {
     @Override
     public boolean booleanFilter(UserFilterDto userFilterDto) {
-        return userFilterDto.getEmail() != null;
+        return userFilterDto.getPhone() != null;
     }
 
     @Override
     public Stream<User> filterUsers(Stream<User> users, UserFilterDto userFilterDto) {
-        return users.filter(u -> u.getEmail().startsWith(userFilterDto.getEmail()));
+        return users.filter(u -> u.getPhone().startsWith(userFilterDto.getPhone()));
     }
 }

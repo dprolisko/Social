@@ -2,7 +2,7 @@ package com.dprol.social.service.user.filter;
 
 import com.dprol.social.dto.user.UserFilterDto;
 import com.dprol.social.entity.user.User;
-import com.dprol.social.filter.UserFilter;
+import com.dprol.social.filter.user.UserFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

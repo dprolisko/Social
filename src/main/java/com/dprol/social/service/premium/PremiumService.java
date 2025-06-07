@@ -1,7 +1,6 @@
 package com.dprol.social.service.premium;
 
 import com.dprol.social.dto.PremiumDto;
-import com.dprol.social.entity.Premium;
 
 public interface PremiumService {
 

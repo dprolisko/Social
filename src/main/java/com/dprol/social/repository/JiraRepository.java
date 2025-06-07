@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface JiraRepository extends JpaRepository<Jira, Long> {
 
-    Optional<Jira> findByJiraId(Long id);
+    Optional<Jira> findByUserId(Long userId);
 }

@@ -11,7 +11,9 @@ import lombok.*;
 
 public class JiraDto {
 
-    private Long id;
+    private Long jiraId;
+
+    private Long userId;
 
     @NotBlank
     private String username;

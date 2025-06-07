@@ -16,7 +16,7 @@ public class PremiumValidatorImpl implements PremiumValidator {
     @Override
     public void validatePremium(PremiumDto premiumDto) {
         boolean isExists = premiumRepository.existsById(premiumDto.getPremiumId());
-        if (isExists) {
+        if (!isExists) {
             throw new DataValidationException("There is no premium");
         }
     }

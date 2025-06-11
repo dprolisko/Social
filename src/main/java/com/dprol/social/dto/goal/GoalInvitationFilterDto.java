@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 
-public class GoalInvitedFilterDto {
+public class GoalInvitationFilterDto {
 
     private Long inviterId;
 

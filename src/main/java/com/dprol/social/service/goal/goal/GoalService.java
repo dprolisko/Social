@@ -1,4 +1,4 @@
-package com.dprol.social.service.goal;
+package com.dprol.social.service.goal.goal;
 
 import com.dprol.social.dto.goal.GoalDto;
 import com.dprol.social.dto.goal.GoalFilterDto;

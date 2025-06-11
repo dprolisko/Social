@@ -1,11 +1,8 @@
 package com.dprol.social.service.goal.filter;
 
 import com.dprol.social.dto.goal.GoalFilterDto;
-import com.dprol.social.dto.user.UserFilterDto;
 import com.dprol.social.entity.goal.Goal;
-import com.dprol.social.entity.user.User;
 import com.dprol.social.filter.goal.GoalFilter;
-import com.dprol.social.filter.user.UserFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

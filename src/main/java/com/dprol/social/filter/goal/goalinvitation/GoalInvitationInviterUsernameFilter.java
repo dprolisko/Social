@@ -8,15 +8,15 @@ import java.util.stream.Stream;
 
 @Component
 
-public class GoalInvitationInviterFilter implements GoalInvitationFilter {
+public class GoalInvitationInviterUsernameFilter implements GoalInvitationFilter {
 
     @Override
     public boolean booleanGoalInvitation(GoalInvitationFilterDto goalInvitationFilterDto) {
-        return goalInvitationFilterDto.getInviterId() != null;
+        return goalInvitationFilterDto.getInviterUsername() != null;
     }
 
     @Override
     public Stream<GoalInvitation> filterGoalInvitations(Stream<GoalInvitation> goalInvitation, GoalInvitationFilterDto goalInvitationFilterDto) {
-        return goalInvitation.filter(u->u.getInviter().getId().equals(goalInvitationFilterDto.getInviterId()));
+        return goalInvitation.filter(u->u.getInviter().getUsername().startsWith(goalInvitationFilterDto.getInviterUsername()));
     }
 }

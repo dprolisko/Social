@@ -2,6 +2,7 @@ package com.dprol.social.service.goal.goalinvitation;
 
 import com.dprol.social.dto.goal.GoalInvitationDto;
 import com.dprol.social.dto.goal.GoalInvitationFilterDto;
+import com.dprol.social.entity.goal.GoalInvitation;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface GoalInvitationService {
     List<GoalInvitationDto> getInvitationsList(Long goalInvitationId, GoalInvitationFilterDto goalInvitationFilterDto);
 
     List<GoalInvitationDto> getInvitedList(Long invitedId, GoalInvitationFilterDto goalInvitationFilterDto);
+
+    GoalInvitation findInvitationById(Long goalInvitationId);
 }

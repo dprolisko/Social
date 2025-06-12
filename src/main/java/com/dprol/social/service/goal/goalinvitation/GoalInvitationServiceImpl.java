@@ -4,6 +4,7 @@ import com.dprol.social.dto.goal.GoalInvitationDto;
 import com.dprol.social.dto.goal.GoalInvitationFilterDto;
 import com.dprol.social.entity.goal.GoalInvitation;
 import com.dprol.social.entity.user.User;
+import com.dprol.social.exception.GoalInvitationNotFoundException;
 import com.dprol.social.exception.UserNotFoundException;
 import com.dprol.social.mapper.goal.GoalInvitationMapper;
 import com.dprol.social.repository.UserRepository;
@@ -66,5 +67,10 @@ public class GoalInvitationServiceImpl implements GoalInvitationService {
         goalInvitationValidator.validateInvited(invitedId);
         Stream<GoalInvitation> filterGoalInvitation = goalInvitationRepository.findByGoalInvitationStream(invitedId);
         return goalInvitationFilterService.filterGoalsInvited(filterGoalInvitation, goalInvitationFilterDto).map(goalInvitationMapper::toDto).toList();
+    }
+
+    @Override
+    public GoalInvitation findInvitationById(Long goalInvitationId) {
+        return goalInvitationRepository.findById(goalInvitationId).orElseThrow(() -> new GoalInvitationNotFoundException("Invitation not found"));
     }
 }

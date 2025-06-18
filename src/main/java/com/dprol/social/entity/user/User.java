@@ -3,6 +3,7 @@ package com.dprol.social.entity.user;
 import com.dprol.social.entity.*;
 import com.dprol.social.entity.contact.Contact;
 import com.dprol.social.entity.contact.ContactPreference;
+import com.dprol.social.entity.event.Event;
 import com.dprol.social.entity.goal.Goal;
 import com.dprol.social.entity.goal.GoalInvitation;
 import com.dprol.social.entity.skill.Skill;
@@ -96,4 +97,19 @@ public class User {
 
     @OneToOne(mappedBy = "user_id")
     private ContactPreference contactPreference;
+
+    @OneToMany(mappedBy = "user")
+    private List<Event> event;
+
+    @ManyToMany
+    @JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
+    private List<Event> participatedEvents;
+
+    @ManyToMany
+    @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
+    private List<User> followers;
+
+    @ManyToMany
+    @JoinTable(name = "user_following", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "following_id"))
+    private List<User> followings;
 }

@@ -1,16 +1,16 @@
-package com.dprol.social.mapper.goal;
+package com.dprol.social.mapper.event;
 
-import com.dprol.social.dto.goal.GoalDto;
-import com.dprol.social.entity.goal.Goal;
+import com.dprol.social.dto.event.EventDto;
+import com.dprol.social.entity.event.Event;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface GoalMapper {
+public interface EventMapper {
 
     @Mapping(source = "user", target = "id")
-    GoalDto toDto(Goal goal);
+    EventDto toDto(Event event);
 
-    Goal toEntity(GoalDto goalDto);
+    Event toEntity(EventDto eventDto);
 }

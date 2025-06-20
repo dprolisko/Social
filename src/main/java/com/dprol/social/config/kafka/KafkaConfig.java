@@ -1,4 +1,4 @@
-package com.dprol.social.config;
+package com.dprol.social.config.kafka;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
+
     @Value("${spring.data.kafka.port}")
     private int port;
 

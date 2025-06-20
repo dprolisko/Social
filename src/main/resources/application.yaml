@@ -21,6 +21,15 @@ spring:
    redis:
      port: 6033
      host: localhost
+   channel:
+     follower:
+       name: follower_channel
+     goal_complete:
+       name: goal_complete_channel
+     profile_view:
+       name: profile_view_channel
+     premium_bought:
+       name: premium_bought_channel
 
 services:
   s3:
@@ -31,3 +40,46 @@ services:
     targetwidth: 1080
     targetheight: 560
     maxfilesize: 10
+
+channel:
+  follower:
+    name: follower_channel
+  goal_complete:
+    name: goal_complete_channel
+  profile_view:
+    name: profile_view_channel
+  premium_bought:
+    name: premium_bought_channel
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+server:
+  port: 8090
+  servlet:
+    context-path: /api/v1
+
+logging:
+  level:
+    root: info
+
+premium:
+  scheduler:
+    expired-premium-remover:
+      cron: 0 0 * * *
+aws:
+  accessKey: access_key
+  secretKey: secret_key
+  region: bucket_region
+spring.servlet.multipart.max-file-size: 10KB
+
+scheduler:
+  clearEvents:
+    cronExpression: "0 0 0 * * ?" # Каждый день в полночь
+
+batchSize:
+  eventDeletion: 1000
+
+randomAvatar:
+  url: https://api.dicebear.com/8.x/pixel-art/jpg?seed=

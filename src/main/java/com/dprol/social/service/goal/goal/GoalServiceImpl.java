@@ -3,10 +3,13 @@ package com.dprol.social.service.goal.goal;
 import com.dprol.social.dto.goal.GoalDto;
 import com.dprol.social.dto.goal.GoalFilterDto;
 import com.dprol.social.entity.goal.Goal;
+import com.dprol.social.entity.goal.GoalStatus;
 import com.dprol.social.entity.user.User;
+import com.dprol.social.event.GoalComplitedEvent;
 import com.dprol.social.exception.GoalNotFoundException;
 import com.dprol.social.exception.UserNotFoundException;
 import com.dprol.social.mapper.goal.GoalMapper;
+import com.dprol.social.publisher.GoalComplitedPublisher;
 import com.dprol.social.repository.UserRepository;
 import com.dprol.social.repository.goal.GoalRepository;
 import com.dprol.social.service.goal.filter.GoalFilterService;
@@ -14,6 +17,7 @@ import com.dprol.social.validator.goal.GoalValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -21,6 +25,8 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 
 public class GoalServiceImpl implements GoalService {
+
+    private final GoalComplitedPublisher goalComplitedPublisher;
 
     private final GoalRepository goalRepository;
 
@@ -63,6 +69,9 @@ public class GoalServiceImpl implements GoalService {
         Goal goalValid = findGoalById(goalId);
         goalValidator.validateGoalNotCompleted(goalValid);
         Goal goal = goalMapper.toEntity(goalDto);
+        if (goal.getStatus().equals(GoalStatus.completed)){
+            goalComplitedPublisher.publisher(new GoalComplitedEvent(goalId, userId, LocalDateTime.now()));
+        }
         goal = goalRepository.save(goal);
         return goalMapper.toDto(goal);
     }

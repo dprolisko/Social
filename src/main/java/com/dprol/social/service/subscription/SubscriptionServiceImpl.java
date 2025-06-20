@@ -3,13 +3,16 @@ package com.dprol.social.service.subscription;
 import com.dprol.social.dto.SubscriptionDto;
 import com.dprol.social.dto.user.UserDto;
 import com.dprol.social.dto.user.UserFilterDto;
+import com.dprol.social.event.SubscriptionEvent;
 import com.dprol.social.mapper.user.UserMapper;
+import com.dprol.social.publisher.SubscriptionPublisher;
 import com.dprol.social.repository.SubscriptionRepository;
 import com.dprol.social.service.user.filter.UserFilterService;
 import com.dprol.social.validator.subscription.SubscriptionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,11 +28,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final UserFilterService userFilterService;
 
+    private final SubscriptionPublisher subscriptionPublisher;
+
     @Override
     public void followUser(SubscriptionDto subscriptionDto) {
         subscriptionValidator.validateSubscription(subscriptionDto);
         subscriptionValidator.validateFollowerAndFollowingId(subscriptionDto);
         subscriptionRepository.followUser(subscriptionDto.getFollowerId(), subscriptionDto.getFollowingId());
+        subscriptionPublisher.publisher(new SubscriptionEvent(subscriptionDto.getFollowingId(), subscriptionDto.getFollowerId(), LocalDateTime.now()));
     }
 
     @Override

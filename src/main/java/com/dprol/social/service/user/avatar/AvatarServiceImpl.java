@@ -42,10 +42,6 @@ public class AvatarServiceImpl implements AvatarService {
 
     private final UserRepository userRepository;
 
-    private final UserService userService;
-
-    private final UserMapper userMapper;
-
     private final UserProfileMapper userProfileMapper;
 
     private final S3Service s3Service;

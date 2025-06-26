@@ -9,4 +9,6 @@ public interface PremiumService {
     void deactivatePremium(Long id);
 
     void validatePremium(PremiumDto premiumDto);
+
+    void deletePremium();
 }

@@ -3,17 +3,16 @@ package com.dprol.social.service.event;
 import com.dprol.social.dto.event.EventDto;
 import com.dprol.social.dto.event.EventFilterDto;
 import com.dprol.social.entity.event.Event;
-import com.dprol.social.entity.user.User;
 import com.dprol.social.exception.EventNotFoundException;
-import com.dprol.social.exception.GoalNotFoundException;
-import com.dprol.social.exception.UserNotFoundException;
-import com.dprol.social.filter.event.EventFilter;
 import com.dprol.social.mapper.event.EventMapper;
 import com.dprol.social.repository.UserRepository;
 import com.dprol.social.repository.event.EventRepository;
 import com.dprol.social.service.event.filter.EventFilterService;
 import com.dprol.social.validator.event.EventValidator;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.ListUtils;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,13 +62,17 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> getParticipatedEvents(Long id, EventFilterDto eventFilterDto) {
-        return List.of();
+    public List<EventDto> getParticipatedEvents(Long userId, EventFilterDto eventFilterDto) {
+        eventValidator.validateByUserId(userId);
+        List<Event> filterEvent = eventRepository.findParticipatedEvents(userId);
+        return filterEvent.stream().map(eventMapper::toDto).toList();
     }
 
     @Override
-    public List<EventDto> getOwnedEvents(Long id, EventFilterDto eventFilterDto) {
-        return List.of();
+    public List<EventDto> getOwnedEvents(Long userId, EventFilterDto eventFilterDto) {
+        eventValidator.validateByUserId(userId);
+        Stream<Event> filterEvent = eventRepository.findAllByUserId(userId);
+        return eventFilterService.filterEvents(filterEvent, eventFilterDto).map(eventMapper::toDto).toList();
     }
 
     @Override
@@ -77,8 +80,20 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findEventById(eventId).orElseThrow(() -> new EventNotFoundException(String.format("Event with id %s not found", eventId)));
     }
 
-    @Override
+    @Scheduled(cron = "${scheduler.clearEvents.cronExpression}")
     public void clearEvents() {
+        List<Long> events = eventRepository.findEventByCompletedOrCancelled();
+        if (events.isEmpty()){
+            return;
+        }
+        List<List<Long>> listListov = ListUtils.partition(events, 20);
+        for (List<Long> eventList : listListov) {
+            clearAllEventsAsync(eventList);
+        }
+    }
 
+    @Async("ThreadPoolClear")
+    void clearAllEventsAsync(List<Long> eventIds) {
+        eventRepository.deleteAllById(eventIds);
     }
 }

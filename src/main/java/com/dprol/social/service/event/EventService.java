@@ -16,9 +16,9 @@ public interface EventService {
 
     List<EventDto> getListEvents(Long id, EventFilterDto eventFilterDto);
 
-    List<EventDto> getParticipatedEvents(Long eventId, EventFilterDto eventFilterDto);
+    List<EventDto> getParticipatedEvents(Long userId, EventFilterDto eventFilterDto);
 
-    List<EventDto> getOwnedEvents(Long eventId, EventFilterDto eventFilterDto);
+    List<EventDto> getOwnedEvents(Long userId, EventFilterDto eventFilterDto);
 
     Event findEventById(Long eventId);
 

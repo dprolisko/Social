@@ -11,6 +11,8 @@ import com.dprol.social.validator.premium.PremiumValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 
@@ -49,5 +51,11 @@ public class PremiumServiceImpl implements PremiumService {
 
     public Premium findPremiumById(Long id) {
         return premiumRepository.findById(id).orElseThrow(() -> new PremiumNotFoundException(String.format("Premium Id:" + id + "not found")));
+    }
+
+    @Override
+    public void deletePremium(){
+        List<Long> premiums = premiumRepository.findAllExpiredId();
+        premiumRepository.deleteAllById(premiums);
     }
 }

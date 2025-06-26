@@ -19,7 +19,7 @@ public interface PremiumRepository extends CrudRepository<Premium, Long> {
 
     @Query(value = """
             SELECT p.id FROM Premium p
-            WHERE p.endDate < CURRENT_TIMESTAMP
+            WHERE p.end_date_time < CURRENT_TIMESTAMP
             """)
-    List<Premium> findAllExpiredId();
+    List<Long> findAllExpiredId();
 }

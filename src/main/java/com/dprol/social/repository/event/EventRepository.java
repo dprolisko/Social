@@ -18,7 +18,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Stream<Event> findAllByUserId(Long userId);
 
-    List<Event> findEventByCompletedOrCancelled();
+    List<Long> findEventByCompletedOrCancelled();
 
     List<Event> findParticipatedEvents(Long userId);
 }

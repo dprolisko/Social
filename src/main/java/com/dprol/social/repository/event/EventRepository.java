@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    Optional<Event> findById(Long id);
+    Optional<Event> findEventById(Long id);
+
+    Stream<Event> findAllByEventId(Long eventId);
 
     Stream<Event> findAllByUserId(Long userId);
 

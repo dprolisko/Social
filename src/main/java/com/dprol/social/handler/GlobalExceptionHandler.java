@@ -1,7 +1,6 @@
 package com.dprol.social.handler;
 
-import com.dprol.social.exception.DataValidationException;
-import com.dprol.social.exception.ErrorResponse;
+import com.dprol.social.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,48 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleDataValidationException(DataValidationException e, HttpServletRequest request) {
         log.error("Data Validation error: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(GoalInvitationNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleGoalInvitationNotFoundException(GoalInvitationNotFoundException e, HttpServletRequest request) {
+        log.error("Goal invitation validation error {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(GoalNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleGoalNotFoundException(GoalNotFoundException e, HttpServletRequest request) {
+        log.error("Goal not found: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(JiraNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleJiraNotFoundException(JiraNotFoundException e, HttpServletRequest request) {
+        log.error("Jira not found: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(PremiumNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handlePremiumNotFoundException(PremiumNotFoundException e, HttpServletRequest request) {
+        log.error("Premium not found: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUserNotFoundException(UserNotFoundException e, HttpServletRequest request) {
+        log.error("User not found: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handEventNotFoundException(EventNotFoundException e, HttpServletRequest request) {
+        log.error("Event validation error {}", e.getMessage());
         return buildErrorResponse(e, request);
     }
 

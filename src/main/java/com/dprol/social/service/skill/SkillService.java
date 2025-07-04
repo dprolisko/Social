@@ -11,5 +11,4 @@ public interface SkillService {
     void deleteSkill(Long skillId);
 
     List<SkillDto> getAllSkills(Long userId);
-
 }

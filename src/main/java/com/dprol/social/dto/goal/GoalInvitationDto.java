@@ -3,6 +3,7 @@ package com.dprol.social.dto.goal;
 import com.dprol.social.dto.user.UserDto;
 import com.dprol.social.entity.goal.GoalStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -15,15 +16,15 @@ public class GoalInvitationDto {
 
     private Long id;
 
-    @NotBlank
-    private UserDto inviterId;
+    @NotNull
+    private Long inviterId;
 
-    @NotBlank
-    private UserDto invitedId;
+    @NotNull
+    private Long invitedId;
 
-    @NotBlank
-    private GoalDto goalId;
+    @NotNull
+    private Long goalId;
 
-    @NotBlank
+    @NotNull
     private GoalStatus status;
 }

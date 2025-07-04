@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Builder
+@Data
 @Table(name = "goal_invitation")
 
 public class GoalInvitation {
@@ -27,21 +25,21 @@ public class GoalInvitation {
     private Goal goal;
 
     @ManyToOne
-    @JoinColumn(name = "inviter_id")
+    @JoinColumn(name = "inviter_id", nullable = false)
     private User Inviter;
 
     @ManyToOne
-    @JoinColumn(name = "invited_id")
+    @JoinColumn(name = "invited_id", nullable = false)
     private User Invited;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt")
+    @Column(name = "createdAt", nullable = false)
     private LocalDateTime CreatedAt;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updatedAt")
+    @Column(name = "updatedAt", nullable = false)
     private LocalDateTime UpdatedAt;
 
     @Column (name = "status")

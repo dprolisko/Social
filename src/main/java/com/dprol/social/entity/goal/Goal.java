@@ -12,9 +12,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Builder
+@Data
 @Table(name = "goal")
 
 public class Goal {
@@ -48,7 +46,7 @@ public class Goal {
     private GoalStatus status;
 
     @ManyToMany
-    @JoinTable(name = "users_goals", joinColumns = @JoinColumn(name = "goals_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_goals", joinColumns = @JoinColumn(name = "goal_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     @OneToMany(mappedBy = "goal_id")

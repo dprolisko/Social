@@ -4,7 +4,7 @@ import com.dprol.social.dto.JiraDto;
 
 public interface JiraService {
 
-    JiraDto addJira(JiraDto jiraDto);
+    JiraDto addJira(long userId, JiraDto jiraDto);
 
     void deleteJira(Long id);
 

@@ -1,6 +1,5 @@
 package com.dprol.social.config;
 
-import com.dprol.social.controller.UserController;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.RequiredArgsConstructor;

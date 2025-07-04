@@ -18,7 +18,7 @@ public class JiraServiceImpl implements JiraService {
     private final JiraMapper jiraMapper;
 
     @Override
-    public JiraDto addJira(JiraDto jiraDto) {
+    public JiraDto addJira(long userId, JiraDto jiraDto) {
         jiraDto.setUserId(jiraDto.getUserId());
         jiraDto.setJiraId(jiraDto.getJiraId());
         Jira jira = jiraMapper.toEntity(jiraDto);

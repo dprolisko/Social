@@ -27,10 +27,10 @@ public class PremiumServiceImpl implements PremiumService {
     private final PremiumBuyPublisher premiumBuyPublisher;
 
     @Override
-    public PremiumDto activatePremium(PremiumDto premiumDto) {
+    public PremiumDto activatePremium(Long userId, PremiumDto premiumDto) {
         premiumDto.setUserId(premiumDto.getUserId());
         premiumDto.setPremiumId(premiumDto.getPremiumId());
-        Premium premium = premiumMapper.toEntity(premiumDto);
+        Premium premium = premiumMapper.toEntity(userId, premiumDto);
         if (premium.getId().equals(premiumDto.getPremiumId())) {
             premiumBuyPublisher.publisher(new PremiumBuyEvent(premiumDto.getPremiumId(), premiumDto.getUserId(), premiumDto.getPeriod(), premiumDto.getStartTime()));
         }

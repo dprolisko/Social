@@ -1,7 +1,8 @@
-package com.dprol.social.controller;
+package com.dprol.social.controller.user;
 
 import com.dprol.social.dto.user.UserDto;
 import com.dprol.social.service.user.UserService;
+import com.dprol.social.service.user.avatar.AvatarService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,12 +18,15 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("{userId}")
-    public UserDto createUser(@PathVariable UserDto userDto){
+    private final AvatarService avatarService;
+
+    @PostMapping("{userId}")
+    public UserDto createUser(@PathVariable UserDto userDto) {
+        avatarService.generatedPicture(userDto);
         return userService.createUser(userDto);
     }
 
-    @PostMapping("{userId}")
+    @PutMapping("{userId}")
     public UserDto updateUser(@PathVariable UserDto userDto){
         return userService.updateUser(userDto);
     }

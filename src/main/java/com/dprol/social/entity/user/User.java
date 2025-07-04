@@ -86,7 +86,7 @@ public class User {
     @OneToMany(mappedBy = "invited_id")
     private List<GoalInvitation> invited;
 
-    @ManyToMany(mappedBy = "goals")
+    @ManyToMany(mappedBy = "users")
     private List<Goal> goals;
 
     @OneToMany(mappedBy = "user_id")

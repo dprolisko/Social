@@ -2,6 +2,7 @@ package com.dprol.social.dto.goal;
 
 import com.dprol.social.entity.goal.GoalStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,17 +18,17 @@ public class GoalDto {
 
     private Long id;
 
-    @NotBlank
-    private List<Long> userId;
+    @NotNull
+    private List<Long> usersIds;
 
-    @NotBlank
+    @NotNull
     private String title;
 
     private String description;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime deadline;
 
-    @NotBlank
+    @NotNull
     private GoalStatus status;
 }

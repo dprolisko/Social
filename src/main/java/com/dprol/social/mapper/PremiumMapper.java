@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PremiumMapper {
 
-    Premium toEntity(PremiumDto premiumDto);
+    Premium toEntity(Long userId, PremiumDto premiumDto);
 
     Premium toDto(Premium premium);
 }

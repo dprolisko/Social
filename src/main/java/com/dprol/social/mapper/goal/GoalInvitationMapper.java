@@ -1,7 +1,10 @@
 package com.dprol.social.mapper.goal;
 
 import com.dprol.social.dto.goal.GoalInvitationDto;
+import com.dprol.social.entity.goal.Goal;
 import com.dprol.social.entity.goal.GoalInvitation;
+import com.dprol.social.entity.goal.GoalStatus;
+import com.dprol.social.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -18,5 +21,5 @@ public interface GoalInvitationMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    GoalInvitation toEntity(GoalInvitationDto goalInvitationDto);
+    GoalInvitation toEntity(User inviter, User invited, Goal goal, GoalStatus status);
 }

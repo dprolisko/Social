@@ -2,7 +2,9 @@ package com.dprol.social.service.goal.goalinvitation;
 
 import com.dprol.social.dto.goal.GoalInvitationDto;
 import com.dprol.social.dto.goal.GoalInvitationFilterDto;
+import com.dprol.social.entity.goal.Goal;
 import com.dprol.social.entity.goal.GoalInvitation;
+import com.dprol.social.entity.goal.GoalStatus;
 import com.dprol.social.entity.user.User;
 import com.dprol.social.exception.GoalInvitationNotFoundException;
 import com.dprol.social.exception.UserNotFoundException;
@@ -10,6 +12,8 @@ import com.dprol.social.mapper.goal.GoalInvitationMapper;
 import com.dprol.social.repository.UserRepository;
 import com.dprol.social.repository.goal.GoalInvitationRepository;
 import com.dprol.social.service.goal.filter.GoalInvitationFilterService;
+import com.dprol.social.service.goal.goal.GoalService;
+import com.dprol.social.service.user.UserService;
 import com.dprol.social.validator.goal.goalinvitation.GoalInvitationValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,11 +36,18 @@ public class GoalInvitationServiceImpl implements GoalInvitationService {
 
     private final UserRepository userRepository;
 
+    private final UserService userService;
+
+    private final GoalService goalService;
+
     @Override
     public GoalInvitationDto invite(GoalInvitationDto goalInvitationDto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         goalInvitationValidator.validateInvitation(userId);
-        GoalInvitation goalInvitation = goalInvitationMapper.toEntity(goalInvitationDto);
+        User invitedUser = userService.findUserById(goalInvitationDto.getInvitedId());
+        User inviterUser = userService.findUserById(goalInvitationDto.getInviterId());
+        Goal goal = goalService.findGoalById(goalInvitationDto.getGoalId());
+        GoalInvitation goalInvitation = goalInvitationMapper.toEntity(inviterUser, invitedUser, goal, GoalStatus.active);
         goalInvitationRepository.save(goalInvitation);
         return goalInvitationMapper.toDto(goalInvitation);
     }
@@ -45,7 +56,10 @@ public class GoalInvitationServiceImpl implements GoalInvitationService {
     public GoalInvitationDto acceptInvitation(GoalInvitationDto goalInvitationDto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         goalInvitationValidator.validateInvited(userId);
-        GoalInvitation invited = goalInvitationMapper.toEntity(goalInvitationDto);
+        User invitedUser = userService.findUserById(goalInvitationDto.getInvitedId());
+        User inviterUser = userService.findUserById(goalInvitationDto.getInviterId());
+        Goal goal = goalService.findGoalById(goalInvitationDto.getGoalId());
+        GoalInvitation invited = goalInvitationMapper.toEntity(inviterUser, invitedUser, goal, GoalStatus.active);
         goalInvitationRepository.save(invited);
         return goalInvitationMapper.toDto(invited);
     }

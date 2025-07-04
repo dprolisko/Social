@@ -9,8 +9,9 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EventMapper {
 
-    @Mapping(source = "user", target = "id")
+    @Mapping(source = "owner.id", target = "ownerId")
     EventDto toDto(Event event);
 
+    @Mapping(source = "ownerId", target = "owner.id")
     Event toEntity(EventDto eventDto);
 }

@@ -4,7 +4,7 @@ import com.dprol.social.dto.PremiumDto;
 
 public interface PremiumService {
 
-    PremiumDto activatePremium(PremiumDto premiumDto);
+    PremiumDto activatePremium(Long userId, PremiumDto premiumDto);
 
     void deactivatePremium(Long id);
 

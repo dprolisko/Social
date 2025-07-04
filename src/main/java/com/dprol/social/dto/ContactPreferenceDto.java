@@ -1,13 +1,13 @@
 package com.dprol.social.dto;
 
 import com.dprol.social.entity.contact.ContactPreference;
+import com.dprol.social.entity.contact.PreferedContactType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Jacksonized
 @Builder
 
 public class ContactPreferenceDto {
@@ -16,6 +16,5 @@ public class ContactPreferenceDto {
 
     private Long userId;
 
-    @NotBlank
-    private ContactPreference preferedContactType;
+    private PreferedContactType preferedContactType;
 }

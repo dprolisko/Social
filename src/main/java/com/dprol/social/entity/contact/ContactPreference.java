@@ -7,8 +7,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @Table(name = "contact_preference")
 
@@ -19,7 +18,7 @@ public class ContactPreference {
     private Long id;
 
     @Column(name = "prefered_type", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private PreferedContactType preferedContactType;
 
     @OneToOne

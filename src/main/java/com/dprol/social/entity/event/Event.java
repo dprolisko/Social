@@ -46,7 +46,7 @@ public class Event {
     private LocalDateTime updated;
 
     @ManyToOne
-    private User user;
+    private User owner;
 
     @Column(name = "count", nullable = false)
     private int count;

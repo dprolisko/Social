@@ -3,6 +3,7 @@ package com.dprol.social.dto.event;
 import com.dprol.social.entity.event.EventStatus;
 import com.dprol.social.entity.event.EventType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -29,8 +30,8 @@ public class EventDto {
 
     private LocalDateTime end;
 
-    @NotBlank
-    private Long userId;
+    @NotNull
+    private Long ownerId;
 
     private EventType eventType;
 

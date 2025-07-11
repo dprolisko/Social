@@ -1,6 +1,7 @@
 package com.dprol.social.dto.goal;
 
 import com.dprol.social.entity.goal.GoalStatus;
+import lombok.*;
 
 @Getter
 @Setter

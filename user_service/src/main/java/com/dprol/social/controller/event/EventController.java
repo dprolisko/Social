@@ -5,6 +5,7 @@ import com.dprol.social.dto.event.EventFilterDto;
 import com.dprol.social.entity.event.Event;
 import com.dprol.social.service.event.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

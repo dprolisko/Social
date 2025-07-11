@@ -5,6 +5,7 @@ import com.dprol.social.entity.contact.Contact;
 import com.dprol.social.entity.user.UserProfile;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Getter
 @Setter
@@ -39,4 +40,10 @@ public class UserDto {
     private Contact contact;
 
     private boolean active;
+
+    public UserDto(long l, String user3) {
+    }
+
+    public UserDto(Long id, String email, String username, Object o) {
+    }
 }

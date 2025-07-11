@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

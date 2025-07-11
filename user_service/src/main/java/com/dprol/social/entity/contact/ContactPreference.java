@@ -2,6 +2,11 @@ package com.dprol.social.entity.contact;
 
 import com.dprol.social.entity.contact.PreferedContactType;
 import com.dprol.social.entity.user.User;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor

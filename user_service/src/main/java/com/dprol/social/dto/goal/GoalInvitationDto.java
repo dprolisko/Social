@@ -2,6 +2,7 @@ package com.dprol.social.dto.goal;
 
 import com.dprol.social.entity.goal.GoalStatus;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter

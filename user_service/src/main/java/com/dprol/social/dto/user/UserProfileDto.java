@@ -1,6 +1,7 @@
 package com.dprol.social.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 @Getter
 @Setter

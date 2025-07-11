@@ -1,6 +1,7 @@
 package com.dprol.social.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,4 +15,10 @@ public class SkillDto {
 
     @NotBlank
     private String skillName;
+
+    public SkillDto(Long id, String skillName, Long id1) {
+    }
+
+    public SkillDto(long id, String name, String description) {
+    }
 }

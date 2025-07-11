@@ -5,6 +5,7 @@ import com.dprol.social.entity.event.EventType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.time.LocalDateTime;
 

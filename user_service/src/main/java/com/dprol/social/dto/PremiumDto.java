@@ -1,5 +1,7 @@
 package com.dprol.social.dto;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,4 +19,7 @@ public class PremiumDto {
     private int period;
 
     private LocalDateTime startTime;
+
+    public PremiumDto(Long validPremiumId, String active) {
+    }
 }

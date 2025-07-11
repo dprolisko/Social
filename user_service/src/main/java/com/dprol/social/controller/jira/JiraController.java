@@ -4,6 +4,7 @@ import com.dprol.social.config.UserContextConfig;
 import com.dprol.social.dto.JiraDto;
 import com.dprol.social.service.jira.JiraService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("account/jira")

@@ -1,5 +1,9 @@
 package com.dprol.social.entity.user;
 
+import com.dprol.social.entity.Country;
+import com.dprol.social.entity.Jira;
+import com.dprol.social.entity.Premium;
+import com.dprol.social.entity.Rating;
 import com.dprol.social.entity.contact.Contact;
 import com.dprol.social.entity.contact.ContactPreference;
 import com.dprol.social.entity.event.Event;

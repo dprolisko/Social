@@ -3,6 +3,10 @@ package com.dprol.social.controller.skill;
 import com.dprol.social.dto.SkillDto;
 import com.dprol.social.service.skill.SkillService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

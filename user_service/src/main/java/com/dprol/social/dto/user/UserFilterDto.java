@@ -2,6 +2,7 @@ package com.dprol.social.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Getter
 @Setter

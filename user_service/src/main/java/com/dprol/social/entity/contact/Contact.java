@@ -2,6 +2,8 @@ package com.dprol.social.entity.contact;
 
 import com.dprol.social.entity.contact.ContactType;
 import com.dprol.social.entity.user.User;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
@@ -9,7 +11,7 @@ import com.dprol.social.entity.user.User;
 @Getter
 @Setter
 @Builder
-@Table (name ="contact")
+@Table(name ="contact")
 
 public class Contact {
 

@@ -2,6 +2,7 @@ package com.dprol.social.dto.event;
 
 import com.dprol.social.entity.event.EventStatus;
 import com.dprol.social.entity.event.EventType;
+import lombok.*;
 
 import java.time.LocalDateTime;
 

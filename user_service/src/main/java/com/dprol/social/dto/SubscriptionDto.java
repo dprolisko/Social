@@ -1,5 +1,7 @@
 package com.dprol.social.dto;
 
+import lombok.*;
+
 @Getter
 @Setter
 @NoArgsConstructor

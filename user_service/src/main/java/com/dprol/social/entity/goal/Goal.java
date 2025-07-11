@@ -53,4 +53,7 @@ public class Goal {
 
     @OneToMany(mappedBy = "goal_id")
     private List<GoalInvitation> invitations;
+
+    public Goal(Long goalId, String learnJava, GoalStatus goalStatus) {
+    }
 }

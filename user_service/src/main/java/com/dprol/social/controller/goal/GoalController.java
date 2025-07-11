@@ -6,6 +6,7 @@ import com.dprol.social.dto.goal.GoalFilterDto;
 import com.dprol.social.entity.goal.Goal;
 import com.dprol.social.service.goal.goal.GoalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

@@ -11,6 +11,7 @@ import com.dprol.social.exception.UserNotFoundException;
 import com.dprol.social.mapper.user.UserProfileMapper;
 import com.dprol.social.repository.UserRepository;
 import com.dprol.social.service.amazonS3.S3Service;
+import com.dprol.social.service.user.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.coobird.thumbnailator.Thumbnails;
@@ -43,6 +44,7 @@ public class AvatarServiceImpl implements AvatarService {
     private final UserProfileMapper userProfileMapper;
 
     private final S3Service s3Service;
+    private final UserService userService;
 
     @Value("${randomAvatar.url}")
     private String url;
@@ -61,7 +63,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     @Transactional
     public UserProfileDto saveProfilePicture(Long userId, MultipartFile file) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userService.findUserById(userId);
         String nameSmallPicture = "small" + file.getName() + LocalDateTime.now();
         String nameLargePicture = "large" + file.getName() + LocalDateTime.now();
         try{
@@ -80,7 +82,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     @Transactional
     public UserProfileDto deleteProfilePicture(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userService.findUserById(userId);
         s3Service.deleteFile(bucketName, user.getUserProfile().getFileId());
         s3Service.deleteFile(bucketName, user.getUserProfile().getSmallFileId());
         UserProfileDto userProfileDto = userProfileMapper.toDto(user.getUserProfile());
@@ -93,7 +95,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     @Transactional
     public InputStreamResource getProfilePicture(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userService.findUserById(userId);
         S3Object s3Object = s3Service.getFile(bucketName, user.getUserProfile().getFileId());
         return new InputStreamResource(s3Object.getObjectContent());
     }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,19 +14,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "post")
+@Table(name = "comment")
 
-public class Post {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "authorId", nullable = false)
     private Long authorId;
 
     @Column(name = "authorName", nullable = false, length = 32, unique = true)
     private String authorName;
+
+    @Column(name = "content", nullable = false, length = 4096)
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "postId")
+    private Post post;
+
+    @OneToMany
+    @JoinColumn(name = "comment_likeId")
+    private List<Like> like;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,13 +46,8 @@ public class Post {
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updatedAt")
+    @Column(name = "updateAt")
     private LocalDateTime updatedAt;
 
-    @Column(name = "content", nullable = false, length = 4096)
-    private String content;
-
-    //published опубликованные boolean
-    //кол-во просмотров
-    //enum verification status+время
+    //published boolean
 }

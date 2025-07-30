@@ -5,16 +5,24 @@ import com.dprol.social.controller.goal.GoalController;
 import com.dprol.social.dto.goal.GoalDto;
 import com.dprol.social.dto.goal.GoalFilterDto;
 import com.dprol.social.entity.goal.Goal;
+import com.dprol.social.entity.goal.GoalStatus;
 import com.dprol.social.service.goal.goal.GoalService;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,25 +32,33 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(GoalController.class)
+@ExtendWith(MockitoExtension.class)
 class GoalControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @Mock
     private GoalService goalService;
 
-    @MockBean
+    @Mock
     private UserContextConfig userContextConfig;
 
     private final Long testUserId = 1L;
     private final Long testGoalId = 100L;
-    private final GoalDto goalDto = new GoalDto(/* заполните данными */);
-    private final Goal goal = new Goal(/* заполните данными */);
+    private GoalDto goalDto;
+    private Goal goal;
+
+    @InjectMocks
+    private GoalController goalController;
+
+    @BeforeEach
+    void setUp() {
+        goalDto = GoalDto.builder().id(1L).title("title").description("description").deadline(LocalDateTime.now()).status(GoalStatus.active).usersIds(List.of(1L, 2L)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(goalController).build();
+        objectMapper = new ObjectMapper();
+    }
 
     @Test
     void createGoal_ShouldReturnCreated() throws Exception {

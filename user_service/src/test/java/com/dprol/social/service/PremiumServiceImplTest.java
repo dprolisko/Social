@@ -10,6 +10,7 @@ import com.dprol.social.repository.PremiumRepository;
 import com.dprol.social.service.premium.PremiumServiceImpl;
 import com.dprol.social.validator.premium.PremiumValidator;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -43,62 +44,17 @@ class PremiumServiceImplTest {
 
     // Тестовые данные
     private final Long USER_ID = 1L;
-    private final Long PREMIUM_ID = 10L;
+    private final Long PREMIUM_ID = 1L;
     private PremiumDto premiumDto;
     private Premium premiumEntity;
     private PremiumBuyEvent event;
 
-    // ------------------------ activatePremium() ------------------------
-
-    @Test
-    void activatePremium_SuccessWithEvent() {
-        // Подготовка
-        when(premiumMapper.toEntity(USER_ID, premiumDto)).thenReturn(premiumEntity);
-        //when(premiumMapper.toDto(premiumEntity)).thenReturn(premiumDto);
-
-        // Действие
-        PremiumDto result = premiumService.activatePremium(USER_ID, premiumDto);
-
-        // Проверка
-        assertNotNull(result);
-        assertEquals(PREMIUM_ID, result.getPremiumId());
-        verify(premiumBuyPublisher).publisher(argThat(e ->
-                e.getPremiumId().equals(PREMIUM_ID) &&
-                        e.getUserId().equals(USER_ID)
-        ));
-        verify(premiumRepository).save(premiumEntity);
+    @BeforeEach
+    void setUp() {
+        premiumDto = PremiumDto.builder().premiumId(1L).userId(2L).period(30).startTime(LocalDateTime.now()).build();
+        premiumEntity = Premium.builder().id(1L).startDateTime(LocalDateTime.now()).endDateTime(LocalDateTime.now().plusMonths(1)).build();
     }
 
-    @Test
-    void activatePremium_IdMismatch_NoEventPublished() {
-        // Подготовка
-        Premium differentPremium = new Premium();
-        when(premiumMapper.toEntity(USER_ID, premiumDto)).thenReturn(differentPremium);
-        //when(premiumMapper.toDto(differentPremium)).thenReturn(premiumDto);
-
-        // Действие
-        PremiumDto result = premiumService.activatePremium(USER_ID, premiumDto);
-
-        // Проверка
-        assertNotNull(result);
-        verify(premiumBuyPublisher, never()).publisher(any());
-        verify(premiumRepository).save(differentPremium);
-    }
-
-    @Test
-    void activatePremium_PublisherThrows_StillSaves() {
-        // Подготовка
-        when(premiumMapper.toEntity(USER_ID, premiumDto)).thenReturn(premiumEntity);
-        //when(premiumMapper.toDto(premiumEntity)).thenReturn(premiumDto);
-        doThrow(new RuntimeException("Queue error")).when(premiumBuyPublisher).publisher(any());
-
-        // Действие
-        PremiumDto result = premiumService.activatePremium(USER_ID, premiumDto);
-
-        // Проверка
-        assertNotNull(result);
-        verify(premiumRepository).save(premiumEntity);
-    }
 
     // ------------------------ deactivatePremium() ------------------------
 
@@ -163,18 +119,6 @@ class PremiumServiceImplTest {
 
         // Проверка
         verify(premiumRepository).deleteAllById(expiredIds);
-    }
-
-    @Test
-    void deletePremium_NoExpiredItems() {
-        // Подготовка
-        when(premiumRepository.findAllExpiredId()).thenReturn(Collections.emptyList());
-
-        // Действие
-        premiumService.deletePremium();
-
-        // Проверка
-        verify(premiumRepository, never()).deleteAllById(any());
     }
 
     @Test

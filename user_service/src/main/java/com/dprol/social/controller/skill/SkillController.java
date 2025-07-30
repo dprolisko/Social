@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("Skill")
+@RequestMapping("skill")
 
 public class SkillController {
 
     private final SkillService skillService;
 
-    @PostMapping
+    @PostMapping("create")
     public SkillDto createSkill(SkillDto skillDto){
         return skillService.createSkill(skillDto);
     }

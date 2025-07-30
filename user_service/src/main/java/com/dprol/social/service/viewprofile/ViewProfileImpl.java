@@ -26,11 +26,12 @@ public class ViewProfileImpl implements ViewProfile {
     private final ProfileViewPublisher profileViewPublisher;
 
     @Override
-    public void show(Long profileId) {
+    public void show(long profileId) {
         User user = userService.findUserById(profileId);
-        Long viewId = userContextConfig.getUserId();
-        if (profileId != viewId) {
-            profileViewPublisher.publisher(new ProfileViewEvent(profileId, viewId, LocalDateTime.now()));
+        long viewId = userContextConfig.getUserId();
+        ProfileViewEvent event = new ProfileViewEvent(profileId, viewId, LocalDateTime.now());
+        if(event.getViewerId() != event.getUserId()){
+            profileViewPublisher.publisher(event);
         }
         userMapper.toDto(user);
     }

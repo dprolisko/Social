@@ -14,33 +14,33 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("GoalInvitation")
+@RequestMapping("goalInvitation")
 
 public class GoalInvitationController {
 
     private final GoalInvitationService goalInvitationService;
 
-    @PostMapping
+    @PostMapping("/invite")
     public GoalInvitationDto invite(GoalInvitationDto goalInvitationDto, Long userId){
         return goalInvitationService.invite(goalInvitationDto, userId);
     }
 
-    @PostMapping
+    @PostMapping("/accept")
     public GoalInvitationDto acceptInvitation(GoalInvitationDto goalInvitationDto, Long userId){
         return goalInvitationService.acceptInvitation(goalInvitationDto, userId);
     }
 
-    @GetMapping
+    @GetMapping("/getInvitationsList")
     public List<GoalInvitationDto> getInvitationsList(Long goalInvitationId, GoalInvitationFilterDto goalInvitationFilterDto){
         return goalInvitationService.getInvitationsList(goalInvitationId, goalInvitationFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("/getInvitedList")
     public List<GoalInvitationDto> getInvitedList(Long invitedId, GoalInvitationFilterDto goalInvitationFilterDto){
         return goalInvitationService.getInvitedList(invitedId, goalInvitationFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("/find/{goalInvitationId}")
     public GoalInvitation findInvitationById(Long goalInvitationId){
         return goalInvitationService.findInvitationById(goalInvitationId);
     }

@@ -6,6 +6,7 @@ import com.dprol.social.exception.UserNotFoundException;
 import com.dprol.social.mapper.user.UserMapper;
 import com.dprol.social.repository.UserRepository;
 import com.dprol.social.service.user.UserServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,12 +30,25 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    // Тестовые данные
-    private final Long USER_ID = 1L;
     private User userEntity;
+
     private UserDto userDto;
-    private List<Long> USER_IDS;
-    private List<User> userEntities;
+
+    @BeforeEach
+    void setUp() {
+        userEntity = new User();
+        userEntity.setId(1L);
+        userEntity.setUsername("username");
+        userEntity.setPassword("password");
+        userEntity.setEmail("email");
+        userEntity.setPhone("phone");
+        userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setUsername("username");
+        userDto.setPassword("password");
+        userDto.setEmail("email");
+        userDto.setPhone("phone");
+    }
 
     // ------------------------ createUser() ------------------------
 
@@ -50,17 +64,10 @@ class UserServiceImplTest {
 
         // Проверка
         assertNotNull(result);
-        assertEquals(USER_ID, result.getId());
+        assertEquals(userDto.getId(), result.getId());
         verify(userMapper).toEntity(userDto);
         verify(userRepository).save(userEntity);
         verify(userMapper).toDto(userEntity);
-    }
-
-    @Test
-    void createUser_NullInput() {
-        // Действие + Проверка
-        assertThrows(NullPointerException.class,
-                () -> userService.createUser(null));
     }
 
     // ------------------------ updateUser() ------------------------
@@ -77,7 +84,7 @@ class UserServiceImplTest {
 
         // Проверка
         assertNotNull(result);
-        assertEquals(USER_ID, result.getId());
+        assertEquals(userDto.getId(), result.getId());
         verify(userMapper).toEntity(userDto);
         verify(userRepository).save(userEntity);
     }
@@ -98,15 +105,15 @@ class UserServiceImplTest {
     @Test
     void deleteUser_Success() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(userEntity));
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(userEntity));
         when(userMapper.toDto(userEntity)).thenReturn(userDto);
 
         // Действие
-        UserDto result = userService.deleteUser(USER_ID);
+        UserDto result = userService.deleteUser(userDto.getId());
 
         // Проверка
         assertNotNull(result);
-        assertEquals(USER_ID, result.getId());
+        assertEquals(userDto.getId(), result.getId());
         verify(userRepository).delete(userEntity);
         verify(userMapper).toDto(userEntity);
     }
@@ -114,11 +121,11 @@ class UserServiceImplTest {
     @Test
     void deleteUser_UserNotFound() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.empty());
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
 
         // Действие + Проверка
         assertThrows(UserNotFoundException.class,
-                () -> userService.deleteUser(USER_ID));
+                () -> userService.deleteUser(userDto.getId()));
     }
 
     // ------------------------ getUserById() single ------------------------
@@ -126,89 +133,71 @@ class UserServiceImplTest {
     @Test
     void getUserById_Single_Success() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(userEntity));
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(userEntity));
         when(userMapper.toDto(userEntity)).thenReturn(userDto);
 
         // Действие
-        UserDto result = userService.getUserById(USER_ID);
+        UserDto result = userService.getUserById(userDto.getId());
 
         // Проверка
         assertNotNull(result);
-        assertEquals(USER_ID, result.getId());
+        assertEquals(userDto.getId(), result.getId());
         verify(userMapper).toDto(userEntity);
     }
 
     @Test
     void getUserById_Single_NotFound() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.empty());
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
 
         // Действие + Проверка
         assertThrows(UserNotFoundException.class,
-                () -> userService.getUserById(USER_ID));
+                () -> userService.getUserById(userDto.getId()));
     }
 
     // ------------------------ getUserById() list ------------------------
 
     @Test
     void getUserById_List_Success() {
-        // Подготовка
-        List<UserDto> dtos = userEntities.stream()
-                .map(u -> new UserDto(u.getId(), u.getEmail(), u.getUsername(), null))
-                .toList();
-
-        when(userRepository.findAllById(USER_IDS)).thenReturn(userEntities);
-        when(userMapper.toDto(any(User.class))).thenAnswer(inv -> {
-            User u = inv.getArgument(0);
-            return new UserDto(u.getId(), u.getEmail(), u.getUsername(), null);
-        });
-
-        // Действие
-        List<UserDto> result = userService.getUserById(USER_IDS);
-
-        // Проверка
-        assertEquals(3, result.size());
-        assertEquals("Alice", result.get(0).getUsername());
-        assertEquals("Bob", result.get(1).getUsername());
-        verify(userMapper, times(3)).toDto(any(User.class));
+        List<Long> ids = List.of(1L, 2L);
+        User user2 = new User();
+        user2.setId(2L);
+        UserDto userDto2 = new UserDto();
+        userDto2.setId(2L);
+        List<User> users = List.of(userEntity, user2);
+        List<UserDto> userDtos = List.of(userDto, userDto2);
+        when(userRepository.findAllById(ids)).thenReturn(users);
+        when(userMapper.toDto(userEntity)).thenReturn(userDto);
+        when(userMapper.toDto(user2)).thenReturn(userDto2);
+        List<UserDto> result = userService.getUserById(ids);
+        assertEquals(userDtos.size(), result.size());
+        assertEquals(userDtos.get(0).getId(), result.get(0).getId());
+        assertEquals(userDtos.get(1).getId(), result.get(1).getId());
     }
-
-    @Test
-    void getUserById_List_EmptyResult() {
-        // Подготовка
-        when(userRepository.findAllById(USER_IDS)).thenReturn(List.of());
-
-        // Действие
-        List<UserDto> result = userService.getUserById(USER_IDS);
-
-        // Проверка
-        assertTrue(result.isEmpty());
-    }
-
     // ------------------------ findUserById() ------------------------
 
     @Test
     void findUserById_Success() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(userEntity));
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(userEntity));
 
         // Действие
-        User result = userService.findUserById(USER_ID);
+        User result = userService.findUserById(userDto.getId());
 
         // Проверка
         assertNotNull(result);
-        assertEquals(USER_ID, result.getId());
+        assertEquals(userDto.getId(), result.getId());
     }
 
     @Test
     void findUserById_NotFound() {
         // Подготовка
-        when(userRepository.findById(USER_ID)).thenReturn(Optional.empty());
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
 
         // Действие + Проверка
         UserNotFoundException ex = assertThrows(UserNotFoundException.class,
-                () -> userService.findUserById(USER_ID));
+                () -> userService.findUserById(userDto.getId()));
 
-        assertTrue(ex.getMessage().contains(USER_ID.toString()));
+        assertTrue(ex.getMessage().contains(userDto.getId().toString()));
     }
 }

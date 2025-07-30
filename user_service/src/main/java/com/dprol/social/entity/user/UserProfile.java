@@ -3,8 +3,7 @@ package com.dprol.social.entity.user;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

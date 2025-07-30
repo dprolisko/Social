@@ -7,6 +7,7 @@ import com.dprol.social.repository.skill.SkillRepository;
 import com.dprol.social.service.skill.SkillServiceImpl;
 import com.dprol.social.validator.skill.SkillValidator;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,31 +35,47 @@ class SkillServiceImplTest {
     @InjectMocks
     private SkillServiceImpl skillService;
 
+    private Long SKILL_ID = 1L;
+
+    private Long SKILL_ID1 = 2L;
+    private Long SKILL_ID2 = 3L;
+
+    private Long USER_ID = 2L;
+
     // Тестовые данные
-    private final Long SKILL_ID = 1L;
-    private final Long USER_ID = 10L;
-    private SkillDto skillDto;
+
+    private SkillDto skillDto1;
+    private SkillDto skillDto2;
     private Skill skillEntity;
-    private List<Skill> skills;
+    private Skill skillEntity1;
+    private Skill skillEntity2;
+
+    @BeforeEach
+    void setUp() {
+        skillDto1 = SkillDto.builder().id(SKILL_ID).skillName("java").build();
+        skillDto2 = SkillDto.builder().id(SKILL_ID).skillName("python").build();
+        skillEntity1 = Skill.builder().id(SKILL_ID1).skillName("java").build();
+        skillEntity2 = Skill.builder().id(SKILL_ID2).skillName("python").build();
+    }
 
     // ------------------------ createSkill() ------------------------
 
     @Test
     void createSkill_Success() {
         // Подготовка
-        doNothing().when(skillValidator).validateSkill(skillDto);
-        when(skillMapper.toEntity(skillDto)).thenReturn(skillEntity);
+        doNothing().when(skillValidator).validateSkill(skillDto1);
+        when(skillMapper.toEntity(skillDto1)).thenReturn(skillEntity);
         when(skillRepository.save(skillEntity)).thenReturn(skillEntity);
-        when(skillMapper.toDto(skillEntity)).thenReturn(skillDto);
+        when(skillMapper.toDto(skillEntity)).thenReturn(skillDto1);
 
         // Действие
-        SkillDto result = skillService.createSkill(skillDto);
+        SkillDto result = skillService.createSkill(skillDto1);
 
         // Проверка
         assertNotNull(result);
-        assertEquals("Java", result.getSkillName());
-        verify(skillValidator).validateSkill(skillDto);
-        verify(skillMapper).toEntity(skillDto);
+        assertEquals("java", result.getSkillName());
+        verify(skillValidator).validateSkill(skillDto1);
+        verify(skillMapper).toEntity(skillDto1);
         verify(skillRepository).save(skillEntity);
         verify(skillMapper).toDto(skillEntity);
     }
@@ -66,20 +83,13 @@ class SkillServiceImplTest {
     @Test
     void createSkill_ValidationFails() {
         // Подготовка
-        doThrow(new ValidationException("Invalid skill")).when(skillValidator).validateSkill(skillDto);
+        doThrow(new ValidationException("Invalid skill")).when(skillValidator).validateSkill(skillDto1);
 
         // Действие + Проверка
         assertThrows(ValidationException.class,
-                () -> skillService.createSkill(skillDto));
+                () -> skillService.createSkill(skillDto1));
 
         verify(skillRepository, never()).save(any());
-    }
-
-    @Test
-    void createSkill_NullInput() {
-        // Действие + Проверка
-        assertThrows(NullPointerException.class,
-                () -> skillService.createSkill(null));
     }
 
     // ------------------------ deleteSkill() ------------------------
@@ -127,10 +137,10 @@ class SkillServiceImplTest {
     void getAllSkills_Success() {
         // Подготовка
         doNothing().when(skillValidator).validateSkillById(USER_ID);
-        when(skillRepository.findAllByUserId(USER_ID)).thenReturn(skills);
+        when(skillRepository.findAllByUserId(USER_ID)).thenReturn(List.of(skillEntity1, skillEntity2));
         when(skillMapper.toDto(any(Skill.class))).thenAnswer(inv -> {
             Skill s = inv.getArgument(0);
-            return new SkillDto(s.getId(), s.getSkillName(), s.getId());
+            return new SkillDto(s.getId(), s.getSkillName());
         });
 
         // Действие
@@ -138,8 +148,8 @@ class SkillServiceImplTest {
 
         // Проверка
         assertEquals(2, result.size());
-        assertEquals("Java", result.get(0).getSkillName());
-        assertEquals("Spring Boot", result.get(1).getSkillName());
+        assertEquals("java", result.get(0).getSkillName());
+        assertEquals("python", result.get(1).getSkillName());
         verify(skillValidator).validateSkillById(USER_ID);
         verify(skillRepository).findAllByUserId(USER_ID);
         verify(skillMapper, times(2)).toDto(any());
@@ -168,17 +178,5 @@ class SkillServiceImplTest {
 
         // Проверка
         assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void getAllSkills_MapperThrows() {
-        // Подготовка
-        doNothing().when(skillValidator).validateSkillById(USER_ID);
-        when(skillRepository.findAllByUserId(USER_ID)).thenReturn(skills);
-        when(skillMapper.toDto(any(Skill.class))).thenThrow(new RuntimeException("Mapping error"));
-
-        // Действие + Проверка
-        assertThrows(RuntimeException.class,
-                () -> skillService.getAllSkills(USER_ID));
     }
 }

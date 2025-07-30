@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("Premium")
+@RequestMapping("premium")
 
 public class PremiumController {
 
@@ -18,7 +18,7 @@ public class PremiumController {
 
     private final UserContextConfig userContextConfig;
 
-    @PostMapping
+    @PostMapping("activate")
     public PremiumDto activatePremium(PremiumDto premiumDto){
         Long userId = userContextConfig.getUserId();
         return premiumService.activatePremium(userId, premiumDto);

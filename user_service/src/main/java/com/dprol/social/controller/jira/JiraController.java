@@ -15,20 +15,20 @@ public class JiraController {
 
     private final UserContextConfig userContextConfig;
 
-    @PostMapping
+    @PostMapping("/create")
     public JiraDto addJira(JiraDto jiraDto) {
         long userId = userContextConfig.getUserId();
         return jiraService.addJira(userId, jiraDto);
     }
 
-    @DeleteMapping
-    public void deleteJira(){
+    @DeleteMapping("/delete/{jiraId}")
+    public void deleteJira(long jiraId) {
         long userId = userContextConfig.getUserId();
         jiraService.deleteJira(userId);
     }
 
-    @GetMapping
-    public JiraDto getJira(){
+    @GetMapping("/get/{jiraId}")
+    public JiraDto getJira(long jiraId){
         long userId = userContextConfig.getUserId();
         return jiraService.getJira(userId);
     }

@@ -30,27 +30,27 @@ public class SubscriptionController {
         subscriptionService.followUser(subscriptionDto);
     }
 
-    @DeleteMapping
+    @DeleteMapping("unfollowing")
     public void unfollowUser(SubscriptionDto subscriptionDto){
         subscriptionService.unfollowUser(subscriptionDto);
     }
 
-    @GetMapping
+    @GetMapping("followers/{followeeId}")
     public List<UserDto> getFollowers(Long followeeId, UserFilterDto userFilterDto){
         return subscriptionService.getFollowers(followeeId, userFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("following/{followerId}")
     public List<UserDto> getFollowings(Long followerId, UserFilterDto userFilterDto){
         return subscriptionService.getFollowings(followerId, userFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("followers/count/{followerId}")
     public int getFollowersCount(Long followeeId){
         return subscriptionService.getFollowersCount(followeeId);
     }
 
-    @GetMapping
+    @GetMapping("followings/count/{followeeId}")
     public int getFollowingsCount(Long followerId){
         return subscriptionService.getFollowingsCount(followerId);
     }

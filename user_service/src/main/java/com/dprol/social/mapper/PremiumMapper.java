@@ -10,5 +10,5 @@ public interface PremiumMapper {
 
     Premium toEntity(Long userId, PremiumDto premiumDto);
 
-    Premium toDto(Premium premium);
+    PremiumDto toDto(Premium premium);
 }

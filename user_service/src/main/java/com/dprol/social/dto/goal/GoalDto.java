@@ -33,4 +33,7 @@ public class GoalDto {
 
     public GoalDto(Long goalId, String learnJava, GoalStatus goalStatus) {
     }
+
+    public GoalDto(Long id, String title, GoalStatus status, LocalDateTime deadline, String description) {
+    }
 }

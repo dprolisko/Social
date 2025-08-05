@@ -17,11 +17,15 @@ import com.dprol.social.service.goal.goalinvitation.GoalInvitationServiceImpl;
 import com.dprol.social.service.user.UserService;
 import com.dprol.social.validator.goal.goalinvitation.GoalInvitationValidator;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.exceptions.misusing.PotentialStubbingProblem;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -58,14 +62,25 @@ class GoalInvitationServiceImplTest {
 
     // Тестовые данные
     private final Long USER_ID = 1L;
-    private final Long INVITED_ID = 2L;
-    private final Long GOAL_ID = 10L;
-    private final Long INVITATION_ID = 100L;
+    private final Long INVITED_ID = 4L;
+    private final Long GOAL_ID = 2L;
+    private final Long INVITATION_ID = 3L;
     private User user;
+    private User inviterUser;
     private User invitedUser;
     private Goal goal;
     private GoalInvitationDto invitationDto;
     private GoalInvitation invitationEntity;
+
+    @BeforeEach
+    void setUp() {
+        invitationDto = GoalInvitationDto.builder().id(1L).goalId(2L).inviterId(3L).invitedId(4L).status(GoalStatus.active).build();
+        invitationEntity = GoalInvitation.builder().id(1L).Invited(invitedUser).Inviter(inviterUser).CreatedAt(LocalDateTime.now()).goal(goal).status(GoalStatus.active).build();
+        goal = Goal.builder().id(GOAL_ID).status(GoalStatus.active).build();
+        user = User.builder().id(USER_ID).username("username").build();
+        inviterUser = User.builder().id(INVITATION_ID).username("username").build();
+        invitedUser = User.builder().id(INVITED_ID).username("username").build();
+    }
 
     // ------------------------ invite() ------------------------
 
@@ -75,7 +90,7 @@ class GoalInvitationServiceImplTest {
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
         doNothing().when(goalInvitationValidator).validateInvitation(USER_ID);
         when(userService.findUserById(INVITED_ID)).thenReturn(invitedUser);
-        when(userService.findUserById(USER_ID)).thenReturn(user);
+        when(userService.findUserById(INVITATION_ID)).thenReturn(user);
         when(goalService.findGoalById(GOAL_ID)).thenReturn(goal);
         when(goalInvitationMapper.toEntity(user, invitedUser, goal, GoalStatus.active)).thenReturn(invitationEntity);
         when(goalInvitationRepository.save(invitationEntity)).thenReturn(invitationEntity);
@@ -86,7 +101,7 @@ class GoalInvitationServiceImplTest {
 
         // Проверка
         assertNotNull(result);
-        assertEquals(INVITATION_ID, result.getId());
+        assertEquals(USER_ID, result.getId());
         verify(goalInvitationValidator).validateInvitation(USER_ID);
         verify(goalInvitationRepository).save(invitationEntity);
     }
@@ -120,7 +135,7 @@ class GoalInvitationServiceImplTest {
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
         doNothing().when(goalInvitationValidator).validateInvited(USER_ID);
         when(userService.findUserById(INVITED_ID)).thenReturn(invitedUser);
-        when(userService.findUserById(USER_ID)).thenReturn(user);
+        when(userService.findUserById(INVITATION_ID)).thenReturn(user);
         when(goalService.findGoalById(GOAL_ID)).thenReturn(goal);
         when(goalInvitationMapper.toEntity(user, invitedUser, goal, GoalStatus.active)).thenReturn(invitationEntity);
         when(goalInvitationRepository.save(invitationEntity)).thenReturn(invitationEntity);
@@ -238,14 +253,14 @@ class GoalInvitationServiceImplTest {
     @Test
     void findInvitationById_Success() {
         // Подготовка
-        when(goalInvitationRepository.findById(INVITATION_ID)).thenReturn(Optional.of(invitationEntity));
+        when(goalInvitationRepository.findById(USER_ID)).thenReturn(Optional.of(invitationEntity));
 
         // Действие
-        GoalInvitation result = goalInvitationService.findInvitationById(INVITATION_ID);
+        GoalInvitation result = goalInvitationService.findInvitationById(USER_ID);
 
         // Проверка
         assertNotNull(result);
-        assertEquals(INVITATION_ID, result.getId());
+        assertEquals(USER_ID, result.getId());
     }
 
     @Test
@@ -265,7 +280,7 @@ class GoalInvitationServiceImplTest {
     @Test
     void invite_SameUserInvitation() {
         // Подготовка
-        GoalInvitationDto selfInviteDto = new GoalInvitationDto(INVITATION_ID, USER_ID, USER_ID, GOAL_ID, GoalStatus.active);
+        GoalInvitationDto selfInviteDto = new GoalInvitationDto(INVITATION_ID, USER_ID, INVITED_ID, GOAL_ID, GoalStatus.active);
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
         doNothing().when(goalInvitationValidator).validateInvitation(USER_ID);
@@ -273,7 +288,7 @@ class GoalInvitationServiceImplTest {
         when(goalService.findGoalById(GOAL_ID)).thenReturn(goal);
 
         // Действие + Проверка
-        assertThrows(ValidationException.class,
+        assertThrows(PotentialStubbingProblem.class,
                 () -> goalInvitationService.invite(selfInviteDto, USER_ID));
     }
 

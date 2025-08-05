@@ -25,7 +25,6 @@ public class GoalDto {
 
     private String description;
 
-    @NotNull
     private LocalDateTime deadline;
 
     @NotNull

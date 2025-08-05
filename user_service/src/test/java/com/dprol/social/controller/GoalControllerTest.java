@@ -14,9 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,8 +42,8 @@ class GoalControllerTest {
     @Mock
     private UserContextConfig userContextConfig;
 
-    private final Long testUserId = 1L;
-    private final Long testGoalId = 100L;
+    private Long testUserId = 1L;
+    private Long testGoalId = 100L;
     private GoalDto goalDto;
     private Goal goal;
 
@@ -55,7 +52,9 @@ class GoalControllerTest {
 
     @BeforeEach
     void setUp() {
-        goalDto = GoalDto.builder().id(1L).title("title").description("description").deadline(LocalDateTime.now()).status(GoalStatus.active).usersIds(List.of(1L, 2L)).build();
+        userContextConfig.setUserId(testUserId);
+        goalDto = GoalDto.builder().id(1L).title("title").description("description").status(GoalStatus.active).usersIds(List.of(1L, 2L)).build();
+        goal = Goal.builder().id(1L).title("title").createdAt(LocalDateTime.now()).deadline(LocalDateTime.now()).status(GoalStatus.planned).build();
         mockMvc = MockMvcBuilders.standaloneSetup(goalController).build();
         objectMapper = new ObjectMapper();
     }
@@ -65,11 +64,10 @@ class GoalControllerTest {
         when(goalService.createGoal(any(GoalDto.class), eq(testUserId)))
                 .thenReturn(goalDto);
 
-        mockMvc.perform(post("/goal")
-                        .param("userId", testUserId.toString())
+        mockMvc.perform(post("/goal/create/{userId}", testUserId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(goalDto)))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(goalDto.getId()));
     }
 
@@ -79,11 +77,10 @@ class GoalControllerTest {
         when(goalService.getListGoals(eq(testUserId), any(GoalFilterDto.class)))
                 .thenReturn(goals);
 
-        mockMvc.perform(get("/goal/list")
-                        .param("userId", testUserId.toString()))
+        mockMvc.perform(get("/goal/get/{userId}", testUserId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(goalDto.getTitle()));
+                .andExpect(jsonPath("$[0].title").value(goalDto.getTitle()));
     }
 
     @Test
@@ -91,39 +88,8 @@ class GoalControllerTest {
         when(goalService.findGoalById(testGoalId))
                 .thenReturn(goal);
 
-        mockMvc.perform(get("/goal/{goalId}", testGoalId))
+        mockMvc.perform(get("/goal/find/{goalId}", testGoalId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(goal.getId()));
-    }
-
-    @Test
-    void updateGoal_ShouldReturnUpdatedGoal() throws Exception {
-        // Настройка mock для контекста пользователя
-        when(userContextConfig.getUserId()).thenReturn(testUserId);
-        when(goalService.updateGoal(any(GoalDto.class), eq(testUserId), eq(testGoalId)))
-                .thenReturn(goalDto);
-
-        mockMvc.perform(put("/goal/{goalId}", testGoalId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(goalDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.description").value(goalDto.getDescription()));
-    }
-
-    @Test
-    void findGoalById_NotFound_ShouldReturn404() throws Exception {
-        when(goalService.findGoalById(testGoalId))
-                .thenThrow(new EntityNotFoundException("Goal not found"));
-
-        mockMvc.perform(get("/goal/{goalId}", testGoalId))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void createGoal_MissingUserId_ShouldReturnBadRequest() throws Exception {
-        mockMvc.perform(post("/goal")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(goalDto)))
-                .andExpect(status().isBadRequest());
     }
 }

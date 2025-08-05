@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Table(name = "goal_invitation")
+@Builder
 
 public class GoalInvitation {
 

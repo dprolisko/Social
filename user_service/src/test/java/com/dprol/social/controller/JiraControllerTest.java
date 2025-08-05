@@ -37,7 +37,9 @@ class JiraControllerTest {
     @Mock
     private UserContextConfig userContextConfig;
 
-    private final long testUserId = 1L;
+    private final long testUserId = 2L;
+
+    private final long jiraId = 1L;
 
     private JiraDto jiraDto;
 
@@ -56,7 +58,7 @@ class JiraControllerTest {
         when(userContextConfig.getUserId()).thenReturn(testUserId);
         when(jiraService.addJira(eq(testUserId), any(JiraDto.class))).thenReturn(jiraDto);
 
-        mockMvc.perform(post("/account/jira")
+        mockMvc.perform(post("/account/jira/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(jiraDto)))
                 .andExpect(status().isOk())
@@ -69,7 +71,7 @@ class JiraControllerTest {
         when(userContextConfig.getUserId()).thenReturn(testUserId);
         doNothing().when(jiraService).deleteJira(testUserId);
 
-        mockMvc.perform(delete("/account/jira"))
+        mockMvc.perform(delete("/account/jira/delete/{jiraId}", jiraId))
                 .andExpect(status().isOk());
 
         verify(jiraService).deleteJira(testUserId);
@@ -77,10 +79,10 @@ class JiraControllerTest {
 
     @Test
     void getJira_ShouldReturnJiraDto() throws Exception {
-        when(userContextConfig.getUserId()).thenReturn(testUserId);
-        when(jiraService.getJira(testUserId)).thenReturn(jiraDto);
+        when(userContextConfig.getUserId()).thenReturn(2L);
+        when(jiraService.getJira(2L)).thenReturn(jiraDto);
 
-        mockMvc.perform(get("/account/jira"))
+        mockMvc.perform(get("/account/jira/get/{jiraId}", jiraId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value(jiraDto.getUsername()));
     }
@@ -89,7 +91,7 @@ class JiraControllerTest {
     void addJira_InvalidData_ShouldReturnBadRequest() throws Exception {
         JiraDto invalidDto = new JiraDto();
 
-        mockMvc.perform(post("/account/jira")
+        mockMvc.perform(post("/account/jira/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidDto)))
                 .andExpect(status().isOk());

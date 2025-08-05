@@ -17,32 +17,32 @@ public class EventController {
 
     private final EventService eventService;
 
-    @PostMapping
+    @PostMapping("/create")
     public EventDto createEvent(EventDto eventDto){
         return eventService.createEvent(eventDto);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public EventDto updateEvent(EventDto eventDto){
         return eventService.updateEvent(eventDto);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public List<EventDto> getListEvents(Long id, EventFilterDto eventFilterDto){
         return eventService.getListEvents(id, eventFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("/getParticipated")
     public List<EventDto> getParticipatedEvents(Long userId, EventFilterDto eventFilterDto){
         return eventService.getParticipatedEvents(userId, eventFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<EventDto> getOwnedEvents(Long userId, EventFilterDto eventFilterDto){
         return eventService.getOwnedEvents(userId, eventFilterDto);
     }
 
-    @GetMapping
+    @GetMapping("/find")
     public Event findEventById(Long eventId){
         return eventService.findEventById(eventId);
     }

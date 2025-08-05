@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("Goal")
+@RequestMapping("/goal")
 
 public class GoalController {
 
@@ -20,24 +20,24 @@ public class GoalController {
 
     private UserContextConfig userContextConfig;
 
-    @PostMapping
-    public GoalDto createGoal(GoalDto goalDto, Long userId){
+    @PostMapping("/create/{userId}")
+    public GoalDto createGoal(GoalDto goalDto, @PathVariable Long userId){
         return goalService.createGoal(goalDto, userId);
     }
 
-    @GetMapping
-    public List<GoalDto> getListGoals(Long userId, GoalFilterDto goalFilterDto){
+    @GetMapping("/get/{userId}")
+    public List<GoalDto> getListGoals(@PathVariable Long userId, GoalFilterDto goalFilterDto){
         return goalService.getListGoals(userId, goalFilterDto);
     }
 
-    @GetMapping
-    public Goal findGoalById(Long goalId){
+    @GetMapping("/find/{goalId}")
+    public Goal findGoalById(@PathVariable Long goalId){
         return goalService.findGoalById(goalId);
     }
 
-    @PutMapping
-    public GoalDto updateGoal(GoalDto goalDto, Long goalId){
-        Long userId = userContextConfig.getUserId();
+    @PutMapping("/update/{goalId}")
+    public GoalDto updateGoal(GoalDto goalDto, @PathVariable Long goalId){
+        long userId = userContextConfig.getUserId();
         return goalService.updateGoal(goalDto, userId, goalId);
     }
 }

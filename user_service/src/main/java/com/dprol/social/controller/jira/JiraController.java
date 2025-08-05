@@ -22,13 +22,13 @@ public class JiraController {
     }
 
     @DeleteMapping("/delete/{jiraId}")
-    public void deleteJira(long jiraId) {
+    public void deleteJira(@PathVariable long jiraId) {
         long userId = userContextConfig.getUserId();
         jiraService.deleteJira(userId);
     }
 
     @GetMapping("/get/{jiraId}")
-    public JiraDto getJira(long jiraId){
+    public JiraDto getJira(@PathVariable long jiraId){
         long userId = userContextConfig.getUserId();
         return jiraService.getJira(userId);
     }

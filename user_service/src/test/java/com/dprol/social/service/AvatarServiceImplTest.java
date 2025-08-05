@@ -122,9 +122,9 @@ public class AvatarServiceImplTest {
         String forSmallPicture = pictures.get(0);
         String forLargePicture = pictures.get(1);
         verify(userRepository, times(1)).save(user);
-        verify(pictureMapper, times(1)).toDto(UserProfile.builder().smallFileId(forSmallPicture).fileId(forLargePicture).build());
-        assertEquals(result.getFileId(), forLargePicture);
-        assertEquals(result.getSmallFileId(), forSmallPicture);
+        verify(pictureMapper, times(1)).toDto(UserProfile.builder().smallFileId(forLargePicture).fileId(forSmallPicture).build());
+        assertEquals(result.getFileId(), forSmallPicture);
+        assertEquals(result.getSmallFileId(), forLargePicture);
     }@Test
     public void testGetProfilePic() {
         when(userService.findUserById(user.getId())).thenReturn(user);

@@ -50,6 +50,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto updatePost(Long postId) {
+        Post post = findPostById(postId);
         return null;
     }
 

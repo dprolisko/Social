@@ -1,4 +1,4 @@
-package com.dprol.post_service.service;
+package com.dprol.post_service.service.post;
 
 import com.dprol.post_service.dto.PostDto;
 import com.dprol.post_service.entity.Post;

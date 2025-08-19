@@ -4,6 +4,7 @@ import com.dprol.post_service.dto.PostDto;
 import com.dprol.post_service.entity.Post;
 import com.dprol.post_service.mapper.PostMapper;
 import com.dprol.post_service.repository.PostRepository;
+import com.dprol.post_service.validator.PostValidator;
 import exception.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     private final PostMapper postMapper;
+
+    private final PostValidator postValidator;
 
     @Override
     public PostDto createPost(PostDto postDto) {
@@ -50,12 +53,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto updatePost(Long postId) {
-        Post post = findPostById(postId);
-        return null;
+        Post postValid = findPostById(postId);
+        postValidator.validatePostByVereficationStatus(postValid);
+        postRepository.save(postValid);
+        return postMapper.toDto(postValid);
     }
 
     @Override
-    public List<Long> getListPostIdsNotVerified() {
+    public List<Long> getListPostIdsNotVerified(Long postId) {
+        postValidator.validatePostById(postId);
         return List.of();
     }
 }

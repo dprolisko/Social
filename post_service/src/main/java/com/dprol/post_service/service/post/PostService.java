@@ -19,5 +19,5 @@ public interface PostService {
 
     PostDto updatePost(Long postId);
 
-    List<Long> getListPostIdsNotVerified();
+    List<Long> getListPostIdsNotVerified(Long postId);
 }

@@ -2,10 +2,12 @@ package com.dprol.post_service.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,7 +42,33 @@ public class Post {
     @Column(name = "content", nullable = false, length = 4096)
     private String content;
 
-    //published опубликованные boolean
-    //кол-во просмотров
-    //enum verification status+время
+    @Column(name = "published")
+    private boolean published;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "publishedAt")
+    private LocalDateTime publishedAt;
+
+    @Column(name = "viewCount", nullable = false)
+    @ColumnDefault("0")
+    private Long viewCount;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "verifiedAt")
+    private LocalDateTime verifiedAt;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusEntity postStatus;
+
+    @OneToMany(mappedBy = "post")
+    private List<Resources> resources;
+
+    @OneToMany(mappedBy = "post")
+    private List<Like> likes;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }

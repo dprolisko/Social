@@ -49,5 +49,6 @@ public class Comment {
     @Column(name = "updateAt")
     private LocalDateTime updatedAt;
 
-    //published boolean
+    @Column(name = "published")
+    private boolean published;
 }

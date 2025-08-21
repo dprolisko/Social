@@ -32,6 +32,8 @@ public class PostRedisEntity {
 
     private Long likeCount;
 
+    private Long commentCount;
+
     @Reference
     @ToString.Exclude
     private AuthorRedisEntity authorPost;

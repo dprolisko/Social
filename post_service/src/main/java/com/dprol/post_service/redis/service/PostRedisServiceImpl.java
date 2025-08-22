@@ -51,7 +51,7 @@ public class PostRedisServiceImpl implements PostRedisService {
 
     @Override
     public void deletePost(Long postId) {
-        PostRedisEntity entity =  redisLockOperation.findById(postRedisRepository, postId).orElseThrow(() -> new DataValidationException(String.format("Post with id %s not found", postId)));
+        PostRedisEntity entity = redisLockOperation.findById(postRedisRepository, postId).orElseThrow(() -> new DataValidationException(String.format("Post with id %s not found", postId)));
         if (entity != null){
             redisLockOperation.deleteById(postRedisRepository, postId);
             if (entity.getAuthorPost() != null){

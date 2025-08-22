@@ -54,20 +54,24 @@ spring:
     kafka:
       port: 9092
       host: localhost
-      group-id: account_service
+      group-id: post_service
 
       topics:
         default-partition: 1
         default-replication: 1
         topic-settings:
-          likes:
-            name: likes
+          comment-likes:
+            name: comment-likes
+          post-likes:
+            name: post-likes
           posts:
             name: posts
           comments:
             name: comments
           feed-heater:
             name: feed-heater
+          view-count:
+            name: views
 
   servlet:
     multipart:

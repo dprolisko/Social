@@ -10,4 +10,6 @@ public interface AuthorRedisService {
     CompletableFuture<UserDto> saveAuthor(AuthorRedisEntity author);
 
     CompletableFuture<UserDto> getAuthorByCache(AuthorRedisEntity author);
+
+    CompletableFuture<UserDto> deleteAuthor(Long authorId);
 }

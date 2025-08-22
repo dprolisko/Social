@@ -41,4 +41,13 @@ public class AuthorRedisServiceIpml implements AuthorRedisService {
         UserDto userDto = userService.getUserById(author.getId());
         return CompletableFuture.completedFuture(userDto);
     }
+
+    @Override
+    public CompletableFuture<UserDto> deleteAuthor(Long authorId) {
+        userContextConfig.setUserId(authorId);
+        UserDto userDto = userService.getUserById(authorId);
+        AuthorRedisEntity authorRedisEntity = authorRedisMapper.toCacheEntity(userDto);
+        redisLockOperation.deleteById(authorRedisRepository, authorId);
+        return CompletableFuture.completedFuture(userDto);
+    }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 
-public class PostDto {
+public class PostHashtagDto {
 
     private Long id;
 
@@ -35,12 +35,6 @@ public class PostDto {
     @NotBlank
     private boolean published;
 
-    @NotBlank
-    private Long likeCount;
-
-    @NotBlank
-    private Long viewCount;
-
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -55,4 +49,12 @@ public class PostDto {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime publishedAt;
+
+    @NotBlank
+    private String hashtag;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime createdHashtagAt;
 }

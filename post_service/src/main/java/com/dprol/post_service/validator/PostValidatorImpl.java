@@ -28,4 +28,11 @@ public class PostValidatorImpl implements PostValidator {
             throw new DataValidationException("Post with id " + post.getId() + " does not exist");
         }
     }
+
+    @Override
+    public void validatePublicationPost(Post post) {
+        if (post.isPublished()){
+            throw new DataValidationException("Post is already published");
+        }
+    }
 }

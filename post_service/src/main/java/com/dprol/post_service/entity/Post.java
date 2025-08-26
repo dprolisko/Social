@@ -71,4 +71,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    private List<Hashtag> hashtags;
 }

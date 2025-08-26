@@ -7,4 +7,6 @@ public interface PostValidator {
     void validatePostById(Long postId);
 
     void validatePostByVereficationStatus(Post post);
+
+    void validatePublicationPost(Post post);
 }

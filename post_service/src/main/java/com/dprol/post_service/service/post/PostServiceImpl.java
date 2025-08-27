@@ -1,12 +1,14 @@
 package com.dprol.post_service.service.post;
 
 import com.dprol.post_service.dto.PostDto;
+import com.dprol.post_service.dto.PostHashtagDto;
 import com.dprol.post_service.entity.Post;
 import com.dprol.post_service.entity.StatusEntity;
 import com.dprol.post_service.kafka.event.Status;
 import com.dprol.post_service.kafka.producer.PostProducer;
 import com.dprol.post_service.mapper.PostMapper;
 import com.dprol.post_service.repository.PostRepository;
+import com.dprol.post_service.service.hashtag.async.AsyncHashtagService;
 import com.dprol.post_service.validator.PostValidator;
 import exception.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class PostServiceImpl implements PostService {
 
     private final PostProducer postProducer;
 
+    private final AsyncHashtagService asyncHashtagService;
+
     @Override
     public PostDto createPost(PostDto postDto) {
         Post post = postMapper.toEntity(postDto);
@@ -40,6 +44,8 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long postId) {
         Post post = findPostById(postId);
         postRepository.deleteById(postId);
+        PostHashtagDto postHashtagDto = postMapper.toHashtagDto(post);
+        asyncHashtagService.addHashtag(postHashtagDto);
         sendToKafka(post, Status.deleted);
     }
 
@@ -61,6 +67,8 @@ public class PostServiceImpl implements PostService {
         post.setPublished(true);
         post.setPublishedAt(LocalDateTime.now());
         postRepository.save(post);
+        PostHashtagDto postHashtagDto = postMapper.toHashtagDto(post);
+        asyncHashtagService.addHashtag(postHashtagDto);
         sendToKafka(post, Status.created);
         return postMapper.toDto(post);
     }

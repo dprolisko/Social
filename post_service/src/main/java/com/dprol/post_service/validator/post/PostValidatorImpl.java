@@ -1,4 +1,4 @@
-package com.dprol.post_service.validator;
+package com.dprol.post_service.validator.post;
 
 import com.dprol.post_service.entity.Post;
 import com.dprol.post_service.repository.PostRepository;
@@ -22,7 +22,7 @@ public class PostValidatorImpl implements PostValidator {
     }
 
     @Override
-    public void validatePostByVereficationStatus(Post post) {
+    public void validatePostByVerificationStatus(Post post) {
         boolean isExist = postRepository.existsById(post.getId());
         if (!isExist) {
             throw new DataValidationException("Post with id " + post.getId() + " does not exist");

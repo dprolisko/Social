@@ -1,5 +1,7 @@
-package com.dprol.post_service.entity;
+package com.dprol.post_service.entity.like;
 
+import com.dprol.post_service.entity.Comment;
+import com.dprol.post_service.entity.Post;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,9 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Like")
+@Table(name = "postLike")
 
-public class Like {
+public class PostLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +28,6 @@ public class Like {
 
     @Column(name = "userId", nullable = false)
     private Long userId;
-
-    @ManyToOne
-    @JoinColumn(name = "commentId")
-    private Comment comment;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

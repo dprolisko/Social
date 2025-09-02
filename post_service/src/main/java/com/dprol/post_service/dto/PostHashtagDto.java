@@ -1,6 +1,5 @@
 package com.dprol.post_service.dto;
 
-import com.dprol.post_service.entity.Like;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,5 +1,6 @@
 package com.dprol.post_service.entity;
 
+import com.dprol.post_service.entity.like.PostLike;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -67,7 +68,7 @@ public class Post {
     private List<Resources> resources;
 
     @OneToMany(mappedBy = "post")
-    private List<Like> likes;
+    private List<PostLike> likes;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;

@@ -4,8 +4,11 @@ import com.dprol.post_service.kafka.event.CommentEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
+
+@Component
 
 public class CommentProducer extends AbstractKafkaProducer<CommentEvent>{
 

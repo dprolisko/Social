@@ -3,13 +3,12 @@ package com.dprol.post_service.service.post;
 import com.dprol.post_service.dto.PostDto;
 import com.dprol.post_service.dto.PostHashtagDto;
 import com.dprol.post_service.entity.Post;
-import com.dprol.post_service.entity.StatusEntity;
 import com.dprol.post_service.kafka.event.Status;
 import com.dprol.post_service.kafka.producer.PostProducer;
 import com.dprol.post_service.mapper.PostMapper;
 import com.dprol.post_service.repository.PostRepository;
 import com.dprol.post_service.service.hashtag.async.AsyncHashtagService;
-import com.dprol.post_service.validator.PostValidator;
+import com.dprol.post_service.validator.post.PostValidator;
 import exception.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -76,7 +75,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto updatePost(Long postId) {
         Post postValid = findPostById(postId);
-        postValidator.validatePostByVereficationStatus(postValid);
+        postValidator.validatePostByVerificationStatus(postValid);
         postRepository.save(postValid);
         sendToKafka(postValid, Status.updated);
         return postMapper.toDto(postValid);

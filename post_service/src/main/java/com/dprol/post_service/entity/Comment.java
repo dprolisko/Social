@@ -1,5 +1,6 @@
 package com.dprol.post_service.entity;
 
+import com.dprol.post_service.entity.like.PostLike;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,12 +38,17 @@ public class Comment {
 
     @OneToMany
     @JoinColumn(name = "comment_likeId")
-    private List<Like> like;
+    private List<PostLike> like;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false)
     private LocalDateTime createdAt;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "publishedAt")
+    private LocalDateTime publishedAt;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

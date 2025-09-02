@@ -1,4 +1,4 @@
-package com.dprol.post_service.dto;
+package com.dprol.post_service.dto.like;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 
-public class LikeDto {
+public class CommentLikeDto {
 
     private Long id;
 

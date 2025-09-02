@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
 
-    Optional<Comment> findById(Long commentId);
+    Optional<Comment> findCommentById(Long commentId);
 
     Optional<Comment> findByUserId(Long userId);
 

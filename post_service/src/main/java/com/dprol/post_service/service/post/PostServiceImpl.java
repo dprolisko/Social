@@ -9,7 +9,7 @@ import com.dprol.post_service.mapper.PostMapper;
 import com.dprol.post_service.repository.PostRepository;
 import com.dprol.post_service.service.hashtag.async.AsyncHashtagService;
 import com.dprol.post_service.validator.post.PostValidator;
-import exception.PostNotFoundException;
+import com.dprol.post_service.exception.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

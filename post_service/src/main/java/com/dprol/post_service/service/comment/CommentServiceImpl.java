@@ -7,7 +7,7 @@ import com.dprol.post_service.kafka.producer.CommentProducer;
 import com.dprol.post_service.mapper.CommentMapper;
 import com.dprol.post_service.repository.CommentRepository;
 import com.dprol.post_service.validator.comment.CommentValidator;
-import exception.CommentNotFoundException;
+import com.dprol.post_service.exception.CommentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

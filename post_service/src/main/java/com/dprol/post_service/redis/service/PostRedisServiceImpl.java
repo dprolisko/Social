@@ -3,7 +3,7 @@ package com.dprol.post_service.redis.service;
 import com.dprol.post_service.dto.UserDto;
 import com.dprol.post_service.redis.entity.PostRedisEntity;
 import com.dprol.post_service.redis.repository.PostRedisRepository;
-import exception.DataValidationException;
+import com.dprol.post_service.exception.DataValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

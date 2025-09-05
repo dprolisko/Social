@@ -2,7 +2,7 @@ package com.dprol.post_service.validator.comment;
 
 import com.dprol.post_service.entity.Comment;
 import com.dprol.post_service.repository.CommentRepository;
-import exception.DataValidationException;
+import com.dprol.post_service.exception.DataValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

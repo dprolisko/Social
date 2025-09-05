@@ -2,7 +2,7 @@ package com.dprol.post_service.validator.like;
 
 import com.dprol.post_service.repository.CommentRepository;
 import com.dprol.post_service.repository.like.PostLikeRepository;
-import exception.DataValidationException;
+import com.dprol.post_service.exception.DataValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -27,15 +27,13 @@ public class Resources {
     @Column(name = "size", nullable = false)
     private Long size;
 
+    @Column(name = "key", nullable = false)
+    private String key;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updatedAt")
-    private LocalDateTime updatedAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deletedAt")

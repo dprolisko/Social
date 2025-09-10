@@ -52,7 +52,7 @@ public class Comment {
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updateAt")
+    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
     @Column(name = "published")

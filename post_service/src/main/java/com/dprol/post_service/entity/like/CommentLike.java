@@ -22,10 +22,6 @@ public class CommentLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "postId")
-    private Post post;
-
     @Column(name = "userId", nullable = false)
     private Long userId;
 

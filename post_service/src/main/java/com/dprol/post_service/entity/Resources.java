@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Resources")
+@Table(name = "resources")
 
 public class Resources {
 
@@ -48,7 +48,7 @@ public class Resources {
     @Column(name = "type", nullable = false)
     private ResourceType resourceType;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", length = 32, nullable = false)
     private String title;
 
     @ManyToOne

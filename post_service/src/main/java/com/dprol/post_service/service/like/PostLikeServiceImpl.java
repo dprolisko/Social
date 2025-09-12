@@ -24,8 +24,11 @@ public class PostLikeServiceImpl implements PostLikeService {
     private final PostLikeProducer postLikeProducer;
 
     @Override
-    public PostLikeDto addPostLike(PostLikeDto postLikeDto) {
-        likeValidator.validatePostLike(postLikeDto.getPostId());
+    public PostLikeDto addPostLike(Long postLikeId, Long userId) {
+        likeValidator.validatePostLike(postLikeId);
+        PostLikeDto postLikeDto = new PostLikeDto();
+        postLikeDto.setId(postLikeId);
+        postLikeDto.setUserId(userId);
         PostLike postLike = postLikeMapper.toEntity(postLikeDto);
         postLikeRepository.save(postLike);
         postLikeProducer.produce(postLikeMapper.toKafkaEvent(postLike, Status.created));
@@ -33,7 +36,7 @@ public class PostLikeServiceImpl implements PostLikeService {
     }
 
     @Override
-    public void deletePostLike(Long postLikeId) {
+    public void deletePostLike(Long postLikeId, Long userId) {
         PostLike postLike = postLikeRepository.findById(postLikeId).orElse(null);
         postLikeRepository.deleteById(postLikeId);
         postLikeProducer.produce(postLikeMapper.toKafkaEvent(postLike, Status.deleted));

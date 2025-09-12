@@ -4,7 +4,7 @@ import com.dprol.post_service.dto.like.CommentLikeDto;
 
 public interface CommentLikeService {
 
-    CommentLikeDto addCommentLike(CommentLikeDto commentLikeDto);
+    CommentLikeDto addCommentLike(Long commentLikeId, Long userId);
 
-    void deleteCommentLike(Long commentLikeId);
+    void deleteCommentLike(Long commentLikeId, Long userId);
 }

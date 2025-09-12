@@ -24,8 +24,11 @@ public class CommentLikeServiceImpl implements CommentLikeService {
     private final CommentLikeProducer commentLikeProducer;
 
     @Override
-    public CommentLikeDto addCommentLike(CommentLikeDto commentLikeDto) {
-        likeValidator.validateCommentLike(commentLikeDto.getId());
+    public CommentLikeDto addCommentLike(Long commentLikeId, Long userId) {
+        likeValidator.validateCommentLike(commentLikeId);
+        CommentLikeDto commentLikeDto = new CommentLikeDto();
+        commentLikeDto.setId(commentLikeId);
+        commentLikeDto.setUserId(userId);
         CommentLike commentLike = commentLikeMapper.toEntity(commentLikeDto);
         commentLikeRepository.save(commentLike);
         commentLikeProducer.produce(commentLikeMapper.toKafkaEvent(commentLike, Status.created));
@@ -33,7 +36,7 @@ public class CommentLikeServiceImpl implements CommentLikeService {
     }
 
     @Override
-    public void deleteCommentLike(Long commentLikeId) {
+    public void deleteCommentLike(Long commentLikeId, Long userId) {
         CommentLike commentLike = commentLikeRepository.findById(commentLikeId).orElse(null);
         commentLikeRepository.deleteById(commentLikeId);
         commentLikeProducer.produce(commentLikeMapper.toKafkaEvent(commentLike,Status.deleted));

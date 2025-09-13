@@ -1,6 +1,7 @@
 package com.dprol.post_service.mapper;
 
 import com.dprol.post_service.dto.CommentDto;
+import com.dprol.post_service.dto.feed.CommentFeedDto;
 import com.dprol.post_service.entity.Comment;
 import com.dprol.post_service.entity.Post;
 import com.dprol.post_service.kafka.event.CommentEvent;
@@ -16,4 +17,6 @@ public interface CommentMapper {
     Comment toEntity(CommentDto commentDto);
     CommentRedisEntity toCommentEvent(CommentEvent commentEvent);
     CommentEvent toKafkaEvent(Comment comment, Status status);
+    CommentFeedDto toCommentCache(CommentRedisEntity commentRedisEntity);
+    CommentFeedDto toComment(Comment comment);
 }

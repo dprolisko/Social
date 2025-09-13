@@ -1,6 +1,7 @@
 package com.dprol.post_service.repository;
 
 import com.dprol.post_service.entity.Post;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     List<Post> getPostsNotVerified();
 
     List<Post> getAllPostsByUserId(Long userId);
+
+    List<Long> findFeedPost(List<Long> userIds, Pageable pageable);
 }

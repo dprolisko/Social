@@ -2,6 +2,7 @@ package com.dprol.post_service.mapper;
 
 import com.dprol.post_service.dto.PostDto;
 import com.dprol.post_service.dto.PostHashtagDto;
+import com.dprol.post_service.dto.feed.PostFeedDto;
 import com.dprol.post_service.entity.Post;
 import com.dprol.post_service.kafka.event.PostEvent;
 import com.dprol.post_service.kafka.event.Status;
@@ -18,4 +19,6 @@ public interface PostMapper {
     PostHashtagDto toHashtagDto(Post post);
     Post toEntity(PostHashtagDto postHashtagDto);
     PostDto toPostDto(PostHashtagDto postHashtagDto);
+    PostFeedDto toPostFeedDto(Post post);
+    PostFeedDto toPostCacheDto(PostRedisEntity postRedisEntity);
 }

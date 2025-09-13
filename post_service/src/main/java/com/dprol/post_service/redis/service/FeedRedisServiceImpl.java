@@ -50,4 +50,9 @@ public class FeedRedisServiceImpl implements FeedRedisService {
             redisLockOperation.updateOrSave(feedRedisRepository, feedRedisEntity, authorId);
         }
     }
+
+    @Override
+    public FeedRedisEntity getPostInFeed(Long authorId) {
+        return redisLockOperation.findById(feedRedisRepository, authorId).orElse(null);
+    }
 }

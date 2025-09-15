@@ -57,4 +57,12 @@ public class Comment {
 
     @Column(name = "published")
     private boolean published;
+
+    @Column(name = "verified")
+    private boolean verified;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "verifiedAt")
+    private LocalDateTime verifiedAt;
 }

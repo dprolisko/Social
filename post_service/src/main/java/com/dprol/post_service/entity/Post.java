@@ -75,4 +75,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Hashtag> hashtags;
+
+    @Column(name = "isSpelling")
+    private boolean isSpelling;
 }

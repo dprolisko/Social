@@ -21,5 +21,5 @@ public interface PostService {
 
     void verifyPost(List<Post> posts);
 
-    void correctPost(List<Post> posts);
+    void correctPost();
 }

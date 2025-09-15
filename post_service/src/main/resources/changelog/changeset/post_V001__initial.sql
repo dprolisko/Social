@@ -9,7 +9,8 @@ CREATE TABLE post (
     publishedAt timestamptz DEFAULT current_timestamp,
     viewCount BIGINT NOT NULL,
     verifiedAt timestamptz DEFAULT current_timestamp,
-    status VARCHAR NOT NULL
+    status VARCHAR NOT NULL,
+    isSpelling VARCHAR NOT NULL
 );
 
 CREATE TABLE comment(
@@ -22,6 +23,8 @@ CREATE TABLE comment(
     updatedAt timestamptz DEFAULT current_timestamp,
     published BOOLEAN DEFAULT FALSE NOT NULL,
     postId BIGINT NOT NULL,
+    verified BOOLEAN DEFAULT FALSE NOT NULL,
+    verifiedAt timestamptz DEFAULT current_timestamp,
 
     CONSTRAINT fk_post_id_comment FOREIGN KEY (postId) REFERENCES post (id),
 );

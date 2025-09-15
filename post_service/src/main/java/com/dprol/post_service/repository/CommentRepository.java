@@ -17,4 +17,6 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
     List<Comment> getListCommentByUserId(Long userId);
 
     List<Comment> getListCommentByPostId(Long postId);
+
+    List<Comment> getListVerifiedComment();
 }

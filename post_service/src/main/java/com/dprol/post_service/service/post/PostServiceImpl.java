@@ -125,6 +125,11 @@ public class PostServiceImpl implements PostService {
         });
     }
 
+    @Override
+    public List<Long> findAllAuthorIdsWithNotVerifiedPosts() {
+        return postRepository.getPostsNotVerified().stream().map(post -> post.getAuthorId()).collect(Collectors.toList());
+    }
+
     private void sendToKafka(Post post, Status status){
         if (post.getAuthorId() != null){
             postProducer.produce(postMapper.toKafkaEvent(post, status));

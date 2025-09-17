@@ -20,4 +20,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     List<Post> getAllPostsByUserId(Long userId);
 
     List<Long> findFeedPost(List<Long> userIds, Pageable pageable);
+
+    List<Post> findAllUncheckedPosts();
 }

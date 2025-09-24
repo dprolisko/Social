@@ -18,7 +18,5 @@ public interface PostMapper {
     PostEvent toKafkaEvent(Post post, Status status);
     PostHashtagDto toHashtagDto(Post post);
     Post toEntity(PostHashtagDto postHashtagDto);
-    PostDto toPostDto(PostHashtagDto postHashtagDto);
     PostFeedDto toPostFeedDto(Post post);
-    PostFeedDto toPostCacheDto(PostRedisEntity postRedisEntity);
 }

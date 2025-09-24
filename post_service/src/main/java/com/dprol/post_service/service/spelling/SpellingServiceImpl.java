@@ -24,7 +24,7 @@ public class SpellingServiceImpl implements SpellingService {
     private final ObjectMapper objectMapper;
 
     @Value("${spelling.url}")
-    private String url;
+    public String url;
 
     @Override
     @Async("spellingExecutor")
@@ -35,13 +35,13 @@ public class SpellingServiceImpl implements SpellingService {
             correctors = objectMapper.readValue(correctorBytes, SpellingCorrectorDto[].class);
         }
         catch (IOException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error converting JSON to POJO", e);
         }
         return CompletableFuture.completedFuture(Optional.of(correct(word, correctors)));
     }
 
     private String correct(String word, SpellingCorrectorDto[] correctors) {
-        AtomicReference<String> corrector = new AtomicReference<>();
+        AtomicReference<String> corrector = new AtomicReference<>(word);
         Arrays.stream(correctors).forEach(e -> corrector.set(corrector.get().replaceFirst(e.getWord(), e.getVariantWords()[0])));
         return corrector.get();
     }

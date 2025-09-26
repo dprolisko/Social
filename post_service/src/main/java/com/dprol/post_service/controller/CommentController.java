@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("comment")
+@RequestMapping("/comment")
 @RequiredArgsConstructor
 
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping
-    public CommentDto createComment(@PathVariable CommentDto commentDto) {
+    @PostMapping("/create")
+    public CommentDto createComment(@RequestBody CommentDto commentDto) {
         return commentService.createComment(commentDto);
     }
 
-    @PutMapping
-    public CommentDto updateComment(@PathVariable CommentDto commentDto) {
+    @PutMapping("update")
+    public CommentDto updateComment(@RequestBody CommentDto commentDto) {
         return commentService.updateComment(commentDto.getId());
     }
 
-    @DeleteMapping("{commentId}")
+    @DeleteMapping("/delete/{commentId}")
     public void deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/getComments/{userId}")
     public List<CommentDto> getCommentsByUserId(@PathVariable Long userId) {
         return commentService.getListCommentByUserId(userId);
     }

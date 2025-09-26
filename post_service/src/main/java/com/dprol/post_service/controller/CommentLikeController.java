@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("commentLike")
+@RequestMapping("/commentLike")
 @RequiredArgsConstructor
 
 public class CommentLikeController {
     private final CommentLikeService commentLikeService;
 
-    @PostMapping("{commentLikeId}")
+    @PostMapping("/add/{commentLikeId}")
     public CommentLikeDto addCommentLike(Long commentLikeId, Long userId) {
         return commentLikeService.addCommentLike(commentLikeId, userId);
     }
 
-    @DeleteMapping("delete/{commentLikeId}")
+    @DeleteMapping("/delete/{commentLikeId}")
     public void deleteCommentLike(Long commentLikeId, Long userId) {
         commentLikeService.deleteCommentLike(commentLikeId, userId);
     }

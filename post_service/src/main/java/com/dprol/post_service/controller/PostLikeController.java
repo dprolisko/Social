@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("postLike")
+@RequestMapping("/postLike")
 @RequiredArgsConstructor
 
 public class PostLikeController {
     private final PostLikeService postLikeService;
 
-    @PostMapping("{postLikeId}")
+    @PostMapping("/add/{postLikeId}")
     public PostLikeDto addPostLike(Long postLikeId, Long userId) {
         return postLikeService.addPostLike(postLikeId, userId);
     }
 
-    @DeleteMapping("{delete/{postLikeId}")
+    @DeleteMapping("/delete/{postLikeId}")
     public void deletePostLike(Long postLikeId, Long userId) {
         postLikeService.deletePostLike(postLikeId, userId);
     }

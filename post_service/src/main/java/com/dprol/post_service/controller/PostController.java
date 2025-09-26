@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("post")
+@RequestMapping("/post")
 @RequiredArgsConstructor
 
 public class PostController {
 
     private final PostService postService;
 
-    @PostMapping
-    public PostDto createPost(@PathVariable PostDto postDto) {
+    @PostMapping("/create")
+    public PostDto createPost(@RequestBody PostDto postDto) {
         return postService.createPost(postDto);
     }
 
-    @PutMapping
-    public PostDto updatePost(@PathVariable PostDto postDto) {
+    @PutMapping("/update")
+    public PostDto updatePost(@RequestBody PostDto postDto) {
         return postService.updatePost(postDto.getId());
     }
 
@@ -32,12 +32,12 @@ public class PostController {
         postService.deletePost(postId);
     }
 
-    @GetMapping("{postId}")
+    @GetMapping("/find/{postId}")
     public Post findPostById(@PathVariable @Positive Long postId) {
         return postService.findPostById(postId);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/findAll/{userId}")
     public List<PostDto> findAllPostsByUserId(@PathVariable @Positive Long userId) {
         return postService.getListPostsByUserId(userId);
     }

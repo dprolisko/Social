@@ -32,7 +32,13 @@ dependencies {
     implementation("redis.clients:jedis:4.3.2")
     runtimeOnly("org.postgresql:postgresql")
 
-    /**
+    // https://mvnrepository.com/artifact/org.telegram/telegrambots-client
+    implementation("org.telegram:telegrambots-client:9.1.0")
+
+    // https://mvnrepository.com/artifact/org.telegram/telegrambots-springboot-longpolling-starter
+    implementation("org.telegram:telegrambots-springboot-longpolling-starter:9.1.0")
+
+    /***
      * Utils & Logging
      */
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")

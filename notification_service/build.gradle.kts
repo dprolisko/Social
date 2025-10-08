@@ -33,10 +33,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     // https://mvnrepository.com/artifact/org.telegram/telegrambots-client
-    implementation("org.telegram:telegrambots-client:9.1.0")
+    implementation("org.telegram:telegrambots:6.9.7.1")
 
-    // https://mvnrepository.com/artifact/org.telegram/telegrambots-springboot-longpolling-starter
-    implementation("org.telegram:telegrambots-springboot-longpolling-starter:9.1.0")
 
     /***
      * Utils & Logging

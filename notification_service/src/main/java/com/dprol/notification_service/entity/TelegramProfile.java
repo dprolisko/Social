@@ -22,19 +22,19 @@ public class TelegramProfile {
     private Long Id;
 
     @NotNull
-    @Column(name = "userId")
+    @Column(name = "user_Id")
     private Long userId;
 
     @NotNull
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String username;
 
     @NotNull
-    @Column(name = "telegramId")
+    @Column(name = "telegram_id")
     private Long telegramId;
 
     @NotNull
-    @Column(name = "isActive")
+    @Column(name = "is_active")
     @ColumnDefault(value = "false")
-    private boolean isActive;
+    private boolean is_active;
 }

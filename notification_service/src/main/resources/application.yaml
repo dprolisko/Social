@@ -70,8 +70,8 @@ vonage: #https://dashboard.nexmo.com/getting-started/sms
 
 telegram:
   api:
-    name: name
-    token: 7487712150:AAGfAjSdwMuJNSvxOtX9wWu6_MPHxv-1WpA
+    name: Telegram Notification Bot
+    token: 7926081924:AAF1YkPtHrTPEJ-Cts_Af8QxWfRliwfLWzk
 
 user-service:
     host: localhost

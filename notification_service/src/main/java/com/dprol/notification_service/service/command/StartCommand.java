@@ -29,9 +29,9 @@ public class StartCommand implements Command{
             return commandBuilder.buildCommand(chatId, message1);
         }
         TelegramProfile telegramProfile1 = telegramProfile.get();
-        telegramProfile1.setActive(!telegramProfile1.isActive());
+        telegramProfile1.set_active(!telegramProfile1.is_active());
         profileService.saveTelegramProfile(telegramProfile1);
-        String code = telegramProfile1.isActive() ? "telegram.start" : "telegram.stop";
+        String code = telegramProfile1.is_active() ? "telegram.start" : "telegram.stop";
         String message2 = messageSource.getMessage(code, new String[] {username}, Locale.getDefault());
         return commandBuilder.buildCommand(chatId, message2);
     }

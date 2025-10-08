@@ -14,7 +14,7 @@ public class CommandExcecuter {
     private final Map<String, Command> commands;
 
     public SendMessage commandExcecuter(Long chatId, String command, String username) {
-        Command commandObj = commands.getOrDefault(command, commands.get("/unknown"));
+        Command commandObj = commands.getOrDefault(command, commands.get("/register"));
         return commandObj.sendMessage(chatId, username);
     }
 }

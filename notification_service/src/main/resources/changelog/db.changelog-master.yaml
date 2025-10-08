@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: /changelog/changeset/notification_V001__initial.sql
+  - include:
+      file: /changelog/changeset/notification_V002__create.sql

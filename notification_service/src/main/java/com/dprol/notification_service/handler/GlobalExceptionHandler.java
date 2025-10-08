@@ -3,6 +3,7 @@ package com.dprol.notification_service.handler;
 
 
 import com.dprol.notification_service.exception.ErrorResponse;
+import com.dprol.notification_service.exception.NotFoundException;
 import com.dprol.notification_service.exception.SmsSendingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SmsSendingException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleDataValidationException(SmsSendingException e, HttpServletRequest request) {
-        log.error("Data Validation error: {}", e.getMessage());
+    public ErrorResponse handleSmsSendingException(SmsSendingException e, HttpServletRequest request) {
+        log.error("Sms sending error: {}", e.getMessage());
+        return buildErrorResponse(e, request);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNotFoundException(NotFoundException e, HttpServletRequest request) {
+        log.error("Not found error: {}", e.getMessage());
         return buildErrorResponse(e, request);
     }
 

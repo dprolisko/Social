@@ -1,4 +1,4 @@
-package com.dprol.achievement_service.service;
+package com.dprol.achievement_service.service.achievement_progress;
 
 import com.dprol.achievement_service.dto.AchievementProgressDto;
 

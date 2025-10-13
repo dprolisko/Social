@@ -1,4 +1,4 @@
-package com.dprol.achievement_service.service;
+package com.dprol.achievement_service.service.achievement;
 
 import com.dprol.achievement_service.dto.AchievementDto;
 import com.dprol.achievement_service.entity.Achievement;

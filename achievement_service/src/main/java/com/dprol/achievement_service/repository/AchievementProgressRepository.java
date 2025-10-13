@@ -13,4 +13,6 @@ public interface AchievementProgressRepository extends JpaRepository<Achievement
     Optional<AchievementProgress> findByUserIdAndAchievementId(Long userId, Long achievementId);
 
     List<AchievementProgress> findByUserId(Long userId);
+
+    void createProgress(Long userId, Long achievementId);
 }

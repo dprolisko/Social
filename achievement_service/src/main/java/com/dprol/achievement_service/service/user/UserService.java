@@ -1,4 +1,4 @@
-package com.dprol.achievement_service.service;
+package com.dprol.achievement_service.service.user;
 
 import com.dprol.achievement_service.dto.AchievementDto;
 import com.dprol.achievement_service.dto.UserDto;

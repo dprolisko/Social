@@ -1,6 +1,6 @@
 package com.dprol.achievement_service.client;
 
-import com.dprol.notification_service.client.context.UserContextConfig;
+import com.dprol.achievement_service.client.context.UserContextConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

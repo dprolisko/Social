@@ -1,6 +1,7 @@
 package com.dprol.achievement_service.client;
 
-import com.dprol.notification_service.client.context.UserContextConfig;
+
+import com.dprol.achievement_service.client.context.UserContextConfig;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.RequiredArgsConstructor;

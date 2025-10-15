@@ -1,12 +1,10 @@
 package com.dprol.achievement_service.service.achievement_progress;
 
 import com.dprol.achievement_service.dto.AchievementProgressDto;
-import com.dprol.achievement_service.entity.Achievement;
 import com.dprol.achievement_service.entity.AchievementProgress;
 import com.dprol.achievement_service.exception.NotFoundException;
 import com.dprol.achievement_service.mapper.AchievementProgressMapper;
 import com.dprol.achievement_service.repository.AchievementProgressRepository;
-import com.dprol.achievement_service.repository.AchievementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

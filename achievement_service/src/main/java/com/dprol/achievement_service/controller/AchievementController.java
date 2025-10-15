@@ -16,7 +16,7 @@ public class AchievementController {
 
     private final AchievementService achievementService;
 
-    @GetMapping("/get/{achivementId}")
+    @GetMapping("/get/{achievementId}")
     public AchievementDto getAchievementById(@PathVariable Long achievementId) {
         return achievementService.findAchievementById(achievementId);
     }

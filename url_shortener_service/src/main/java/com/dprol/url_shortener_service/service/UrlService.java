@@ -8,5 +8,5 @@ public interface UrlService {
 
     HashDto createUrl(UrlDto urlDto);
 
-    RedirectView getRedirectView(String url);
+    RedirectView getRedirectView(String hash);
 }

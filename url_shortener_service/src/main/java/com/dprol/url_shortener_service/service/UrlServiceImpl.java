@@ -34,7 +34,7 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public RedirectView getRedirectView(String url) {
-        return new RedirectView(urlCacheRepository.getUrlByHash(url).orElseGet(()-> urlRepository.getUrlByHash(url).map(Url::getHash).orElseThrow(()-> new RuntimeException("Hash not found"))));
+    public RedirectView getRedirectView(String hash) {
+        return new RedirectView(urlCacheRepository.getUrlByHash(hash).orElseGet(()-> urlRepository.getUrlByHash(hash).map(Url::getUrl).orElseThrow(()-> new RuntimeException("Hash not found"))));
     }
 }

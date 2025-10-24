@@ -30,6 +30,8 @@ spring:
           name: goal_complete_channel
         like_post:
           name: like_channel
+        post-view:
+          name: post_view_channel
 
 
 server:

@@ -32,6 +32,16 @@ spring:
           name: like_channel
         post-view:
           name: post_view_channel
+        post-published:
+          name: post_published_channel
+        post-comment:
+          name: post_comment_channel
+        achievement-received:
+          name: achievement_received_channel
+        follower:
+          name: follower_channel
+        profile-appeared-in-search:
+          name: profile_appeared_in_search
 
 
 server:

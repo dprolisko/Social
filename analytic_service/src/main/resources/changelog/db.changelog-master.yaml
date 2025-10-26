@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: database/changelog/changeset/analytic_V001__initial.sql

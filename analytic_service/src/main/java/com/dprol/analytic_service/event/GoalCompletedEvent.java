@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Builder
 @Jacksonized
 
-public class AchievementReceivedEvent {
+public class GoalCompletedEvent {
 
     private String userId;
 
-    private String achievementReceivedId;
+    private String goalId;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime achievementReceivedDate;
+    private LocalDateTime goalCompletedDate;
 }

@@ -1,6 +1,5 @@
 package com.dprol.analytic_service.config.redis;
 
-import com.dprol.analytic_service.listener.PostPublishedListener;
 import com.dprol.analytic_service.listener.PremiumBoughtListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

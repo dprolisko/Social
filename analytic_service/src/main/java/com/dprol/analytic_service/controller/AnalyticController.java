@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("analytic")
+@RequestMapping("/analytic")
 public class AnalyticController {
 
     private final AnalyticService analyticService;

@@ -5,18 +5,23 @@ import com.dprol.analytic_service.entity.Type;
 import com.dprol.analytic_service.event.PostCommentEvent;
 import com.dprol.analytic_service.mapper.PostCommentMapper;
 import com.dprol.analytic_service.service.AnalyticService;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 
 public class PostCommentListener extends Listener<PostCommentEvent> {
 
     private final AnalyticService analyticService;
 
     private final PostCommentMapper postCommentMapper;
+
+    public PostCommentListener(ObjectMapper objectMapper, AnalyticService analyticService, PostCommentMapper postCommentMapper) {
+        super(objectMapper);
+        this.analyticService = analyticService;
+        this.postCommentMapper = postCommentMapper;
+    }
 
     @Override
     public void onMessage(Message message, byte[] pattern) {

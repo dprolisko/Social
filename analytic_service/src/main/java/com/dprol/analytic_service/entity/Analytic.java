@@ -33,7 +33,7 @@ public class Analytic {
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "interval", nullable = false)
+    @Column(name = "interval")
     private Interval interval;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -10,7 +10,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 public class SubscriptionTopic {
 
     @Bean
-    public ChannelTopic channelTopic(@Value("${spring.data.channel.follower.name}") String name) {
+    public ChannelTopic channelSubscriptionTopic(@Value("${spring.data.channel.follower.name}") String name) {
         return new ChannelTopic(name);
     }
 }

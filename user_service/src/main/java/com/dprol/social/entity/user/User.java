@@ -92,16 +92,16 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Goal> goals;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "users")
     private List<Rating> ratings;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "users")
     private List<Contact> contacts;
 
-    @OneToOne(mappedBy = "user_id")
+    @OneToOne(mappedBy = "users")
     private ContactPreference contactPreference;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Event> event;
 
     @ManyToMany

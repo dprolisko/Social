@@ -53,7 +53,7 @@ public class Goal {
     @JoinTable(name = "users_goals", joinColumns = @JoinColumn(name = "goal_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    @OneToMany(mappedBy = "goal_id")
+    @OneToMany(mappedBy = "goal")
     private List<GoalInvitation> invitations;
 
     public Goal(Long goalId, String learnJava, GoalStatus goalStatus) {

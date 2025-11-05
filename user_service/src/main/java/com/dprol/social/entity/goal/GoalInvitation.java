@@ -30,21 +30,21 @@ public class GoalInvitation {
 
     @ManyToOne
     @JoinColumn(name = "inviter_id", nullable = false)
-    private User Inviter;
+    private User inviter;
 
     @ManyToOne
     @JoinColumn(name = "invited_id", nullable = false)
-    private User Invited;
+    private User invited;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false)
-    private LocalDateTime CreatedAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updatedAt", nullable = false)
-    private LocalDateTime UpdatedAt;
+    private LocalDateTime updatedAt;
 
     @Column (name = "status")
     @Enumerated(EnumType.STRING)

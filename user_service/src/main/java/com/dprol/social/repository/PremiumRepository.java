@@ -12,13 +12,9 @@ import java.util.Optional;
 @Repository
 public interface PremiumRepository extends CrudRepository<Premium, Long> {
 
-    Optional<Premium> findByUserId(Long Id);
-
-    List<Premium> findAllByEndDateTime(LocalDateTime endDateTime);
-
     @Query(value = """
             SELECT p.id FROM Premium p
-            WHERE p.end_date_time < CURRENT_TIMESTAMP
+            WHERE p.endDateTime < CURRENT_TIMESTAMP
             """)
     List<Long> findAllExpiredId();
 }

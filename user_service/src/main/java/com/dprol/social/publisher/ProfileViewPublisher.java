@@ -2,7 +2,10 @@ package com.dprol.social.publisher;
 
 import com.dprol.social.event.ProfileViewEvent;
 import com.dprol.social.publisher.MessagePublisher;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,12 +16,16 @@ import org.springframework.stereotype.Component;
 
 public class ProfileViewPublisher implements MessagePublisher<ProfileViewEvent> {
 
-    @Value("${spring.data.channel.goal_complete.name}")
+    @Value("${spring.data.channel.profile_view.name}")
     private String channelTopic;
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    private final ObjectMapper objectMapper;
+
+    private final NewTopic profileViewTopic;
 
     @Override
     public void publisher(ProfileViewEvent message) {
@@ -30,7 +37,13 @@ public class ProfileViewPublisher implements MessagePublisher<ProfileViewEvent> 
         redisTemplate.convertAndSend(channelTopic, message);
     }
 
-    private void publishToKafka(ProfileViewEvent message) {
-        kafkaTemplate.send(channelTopic, message);
+    private void publishToKafka(ProfileViewEvent profileViewEvent) {
+        try {
+            String message = objectMapper.writeValueAsString(profileViewEvent);
+            kafkaTemplate.send(profileViewTopic.name(), message);
+        }
+        catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

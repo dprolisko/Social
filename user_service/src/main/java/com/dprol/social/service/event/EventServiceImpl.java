@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> getListEvents(Long eventId, EventFilterDto eventFilterDto) {
         eventValidator.validateEventById(eventId);
-        Stream<Event> filterEvent = eventRepository.findAllByEventId(eventId);
+        Stream<Event> filterEvent = eventRepository.findAll().stream();
         return eventFilterService.filterEvents(filterEvent, eventFilterDto).map(eventMapper::toDto).toList();
     }
 
@@ -71,7 +71,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> getOwnedEvents(Long userId, EventFilterDto eventFilterDto) {
         eventValidator.validateByUserId(userId);
-        Stream<Event> filterEvent = eventRepository.findAllByUserId(userId);
+        Stream<Event> filterEvent = eventRepository.findAll().stream();
         return eventFilterService.filterEvents(filterEvent, eventFilterDto).map(eventMapper::toDto).toList();
     }
 

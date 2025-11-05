@@ -47,23 +47,23 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public List<UserDto> getFollowers(Long followeeId, UserFilterDto userFilterDto) {
-        return userFilterService.filterUsers(subscriptionRepository.findByFolloweesId(followeeId), userFilterDto)
+        return userFilterService.filterUsers(subscriptionRepository.findByFolloweeId(followeeId), userFilterDto)
                 .map(userMapper::toDto).toList();
     }
 
     @Override
     public List<UserDto> getFollowings(Long followerId, UserFilterDto userFilterDto) {
-        return userFilterService.filterUsers(subscriptionRepository.findByFollowersId(followerId), userFilterDto)
+        return userFilterService.filterUsers(subscriptionRepository.findByFollowerId(followerId), userFilterDto)
                 .map(userMapper::toDto).toList();
     }
 
     @Override
     public int getFollowersCount(Long followerId) {
-        return subscriptionRepository.findByFollowerId(followerId);
+        return subscriptionRepository.findFollowerId(followerId);
     }
 
     @Override
     public int getFollowingsCount(Long followeeId) {
-        return subscriptionRepository.findByFolloweeId(followeeId);
+        return subscriptionRepository.findFolloweeId(followeeId);
     }
 }

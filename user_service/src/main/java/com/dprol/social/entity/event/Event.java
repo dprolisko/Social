@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table(name = "Events")
+@Table(name = "events")
 
 public class Event {
 
@@ -29,29 +29,30 @@ public class Event {
     @Column(name = "description", length = 256)
     private String description;
 
-    @Column(name = "start")
+    @Column(name = "start_date")
     private LocalDateTime start;
 
-    @Column(name = "end")
+    @Column(name = "end_date")
     private LocalDateTime end;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create")
+    @Column(name = "createAt")
     private LocalDateTime created;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update")
+    @Column(name = "updateAt")
     private LocalDateTime updated;
 
     @ManyToOne
+    @JoinColumn(name ="user_id")
     private User owner;
 
     @Column(name = "count", nullable = false)
     private int count;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "participatedEvents")
     private List<User> userList;
 
     @Column(name = "type")

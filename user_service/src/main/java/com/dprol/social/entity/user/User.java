@@ -60,7 +60,7 @@ public class User {
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "user")
     private List<Skill> listSkill;
 
     @OneToOne(mappedBy ="user")
@@ -83,25 +83,25 @@ public class User {
     @Column(name = "city_id", length = 64)
     private String city;
 
-    @OneToMany(mappedBy = "inviter_id")
+    @OneToMany(mappedBy = "inviter")
     private List<GoalInvitation> inviter;
 
-    @OneToMany(mappedBy = "invited_id")
+    @OneToMany(mappedBy = "invited")
     private List<GoalInvitation> invited;
 
     @ManyToMany(mappedBy = "users")
     private List<Goal> goals;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Contact> contacts;
 
-    @OneToOne(mappedBy = "users")
+    @OneToOne(mappedBy = "user")
     private ContactPreference contactPreference;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "owner")
     private List<Event> event;
 
     @ManyToMany
@@ -109,10 +109,9 @@ public class User {
     private List<Event> participatedEvents;
 
     @ManyToMany
-    @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
+    @JoinTable(name = "subscription", joinColumns = @JoinColumn(name = "followee_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private List<User> followers;
 
-    @ManyToMany
-    @JoinTable(name = "user_following", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "following_id"))
+    @ManyToMany(mappedBy = "followers")
     private List<User> followings;
 }

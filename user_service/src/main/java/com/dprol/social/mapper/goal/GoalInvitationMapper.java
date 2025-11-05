@@ -17,5 +17,9 @@ public interface GoalInvitationMapper {
     @Mapping(source = "goal", target = "goal")
     @Mapping(source = "status", target = "status")
     @Mapping(target = "id", ignore = true)
+    @Mapping(source = "inviter", target = "inviter")
+    @Mapping(source = "invited", target = "invited")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     GoalInvitation toEntity(User inviter, User invited, Goal goal, GoalStatus status);
 }

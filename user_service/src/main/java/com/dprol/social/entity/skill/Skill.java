@@ -41,6 +41,6 @@ public class Skill {
     @JoinTable(name = "users_skills", joinColumns = @JoinColumn(name="skill_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> user;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "skill")
     private List<SkillGuarantee> skillGuarantee;
 }

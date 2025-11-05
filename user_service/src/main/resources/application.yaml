@@ -18,10 +18,10 @@ spring:
 
   data:
    kafka:
-    port: 6032
+    port: 9092
     host: localhost
    redis:
-     port: 6033
+     port: 6379
      host: localhost
    channel:
      follower:

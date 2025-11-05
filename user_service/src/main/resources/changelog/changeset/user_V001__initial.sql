@@ -20,6 +20,22 @@ CREATE TABLE users (
     CONSTRAINT fk_country_id FOREIGN KEY (country_id) REFERENCES country(id)
 );
 
+CREATE TABLE events(
+                       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
+                       name VARCHAR(16) NOT NULL,
+                       description VARCHAR(256),
+                       start_date timestamptz DEFAULT current_timestamp,
+                       end_date timestamptz DEFAULT current_timestamp,
+                       createAt timestamptz DEFAULT current_timestamp,
+                       updateAt timestamptz DEFAULT current_timestamp,
+                       count BIGINT NOT NULL,
+                       type VARCHAR,
+                       status VARCHAR,
+                       user_id BIGINT NOT NULL,
+
+                       CONSTRAINT fk_events_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 CREATE TABLE Jira (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     username VARCHAR UNIQUE NOT NULL,
@@ -67,7 +83,7 @@ CREATE TABLE SkillGuarantee(
 
     CONSTRAINT fk_users_id FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_userguarantee_id FOREIGN KEY (userguarentee_id) REFERENCES users(id),
-    CONSTRAINT fk_skill_id FOREIGN KEY (skill_id) REFERENCES  users(id)
+    CONSTRAINT fk_skill_id FOREIGN KEY (skill_id) REFERENCES  skills(id)
 );
 
 CREATE TABLE goal(
@@ -119,12 +135,12 @@ CREATE TABLE contact_preference(
 CREATE TABLE subscription(
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     follower_id BIGINT NOT NULL ,
-    following_id BIGINT NOT NULL,
+    followee_id BIGINT NOT NULL,
     createdAt timestamptz DEFAULT current_timestamp,
     updatedAt timestamptz DEFAULT current_timestamp,
 
     CONSTRAINT fk_follower_id FOREIGN KEY (follower_id) REFERENCES users(id),
-    CONSTRAINT fk_following_id FOREIGN KEY (following_id) REFERENCES users(id)
+    CONSTRAINT fk_following_id FOREIGN KEY (followee_id) REFERENCES users(id)
 );
 
 CREATE TABLE ContentData(

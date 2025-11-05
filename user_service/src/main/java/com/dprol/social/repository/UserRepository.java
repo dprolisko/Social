@@ -10,12 +10,4 @@ import java.util.stream.Stream;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
-
-    boolean isEmailUnique(String email);
-
-    boolean  isUsernameUnique(String username);
-
-    boolean isPhoneUnique(String phone);
-
-    Stream<User> findPremiumUsers();
 }

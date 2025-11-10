@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 public class RedisLockRegistryProperty {
 
-    private String redisHost;
+    private String postLockKey;
 
-    private Long realiseTime;
+    private Long releaseTimeDurationMillis;
 }

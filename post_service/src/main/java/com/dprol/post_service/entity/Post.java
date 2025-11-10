@@ -22,7 +22,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "authorId", nullable = false)
     private Long authorId;

@@ -15,7 +15,7 @@ public class PostProducer extends AbstractKafkaProducer<PostEvent> {
     @Value("${spring.data.kafka.topics.topic-settings.posts.name}")
     private String topic;
 
-    public PostProducer(KafkaTemplate<String, PostEvent> kafkaTemplate, Map<String, NewTopic> producerProps) {
+    public PostProducer(KafkaTemplate<String, Object> kafkaTemplate, Map<String, NewTopic> producerProps) {
         super(kafkaTemplate, producerProps);
     }
 

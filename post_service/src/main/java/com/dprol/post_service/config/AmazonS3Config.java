@@ -7,33 +7,37 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Data
+@RequiredArgsConstructor
+@Getter
+
 public class AmazonS3Config {
 
-    @Value("${services.s3.accesskey}")
+    @Value("${services.s3.accessKey}")
     private String accessKey;
 
-    @Value("${services.s3.secretkey}")
+    @Value("${services.s3.secretKey}")
     private String secretKey;
 
-    @Value("${services.s3.bucketname}")
+    @Value("${services.s3.bucketName}")
     private String bucketName;
 
     @Value("${services.s3.endpoint}")
     private String endPoint;
 
-    @Value("${services.s3.targetwidth}")
+    @Value("${services.s3.targetWidth}")
     private int targetWidth;
 
-    @Value("${services.s3.targetheight}")
+    @Value("${services.s3.targetHeight}")
     private int targetHeight;
 
-    @Value("${services.s3.maxfilesize}")
+    @Value("${services.s3.maxFilesAmount}")
     private int maxFileSize;
 
     @Bean
@@ -42,6 +46,6 @@ public class AmazonS3Config {
         return AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, null))
-                .withPathStyleAccessEnabled(true).build();
+                .build();
     }
 }

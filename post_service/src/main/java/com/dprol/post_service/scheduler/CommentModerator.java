@@ -38,7 +38,7 @@ public class CommentModerator {
 
     @Scheduled(cron = "${moderation.cron}")
     public void moderateContent() {
-        List<Comment> comments = commentRepository.getListVerifiedComment();
+        List<Comment> comments = commentRepository.findByVerifiedIsNull();
         for (int i = 0; i < comments.size(); i+=batchSize) {
             List<Comment> subComments = comments.subList(i, Math.min(comments.size(), i + batchSize));
             CompletableFuture.runAsync(() -> {moderate(subComments);}, executorService);

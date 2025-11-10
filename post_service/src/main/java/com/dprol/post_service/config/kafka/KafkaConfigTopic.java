@@ -12,8 +12,11 @@ public class KafkaConfigTopic {
     @Value("${spring.data.kafka.topics.topic-settings.comments.name}")
     private String commentTopicName;
 
-    @Value("${spring.data.kafka.topics.topic-settings.likes.name}")
-    private String likeTopicName;
+    @Value("${spring.data.kafka.topics.topic-settings.post-likes.name}")
+    private String postLikeTopicName;
+
+    @Value("${spring.data.kafka.topics.topic-settings.comment-likes.name}")
+    private String commentLikeTopicName;
 
     @Value("${spring.data.kafka.topics.topic-settings.feed-heater.name}")
     private String feedTopicName;
@@ -27,8 +30,13 @@ public class KafkaConfigTopic {
     }
 
     @Bean
-    public NewTopic likeTopic() {
-        return new NewTopic(likeTopicName, 1, (short) 1);
+    public NewTopic postLikeTopic() {
+        return new NewTopic(postLikeTopicName, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic commentLikeTopic() {
+        return new NewTopic(commentLikeTopicName, 1, (short) 1);
     }
 
     @Bean

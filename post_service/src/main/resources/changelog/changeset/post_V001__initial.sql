@@ -13,7 +13,7 @@ CREATE TABLE post (
     isSpelling VARCHAR NOT NULL
 );
 
-CREATE TABLE comment(
+CREATE TABLE comment (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     authorId BIGINT NOT NULL,
     authorName VARCHAR(32) NOT NULL,
@@ -26,10 +26,10 @@ CREATE TABLE comment(
     verified BOOLEAN DEFAULT FALSE NOT NULL,
     verifiedAt timestamptz DEFAULT current_timestamp,
 
-    CONSTRAINT fk_post_id_comment FOREIGN KEY (postId) REFERENCES post (id),
+    CONSTRAINT fk_post_id_comment FOREIGN KEY (postId) REFERENCES post (id)
 );
 
-CREATE TABLE hashtag(
+CREATE TABLE hashtag (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     hashtag VARCHAR(16) NOT NULL,
     createdAt timestamptz DEFAULT current_timestamp,
@@ -38,7 +38,7 @@ CREATE TABLE hashtag(
     CONSTRAINT fk_post_id_hashtag FOREIGN KEY (postId) REFERENCES post (id)
 );
 
-CREATE TABLE resources(
+CREATE TABLE resources (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     size BIGINT NOT NULL,
     key VARCHAR NOT NULL,
@@ -52,20 +52,20 @@ CREATE TABLE resources(
     CONSTRAINT fk_post_id_resources FOREIGN KEY (postId) REFERENCES post (id)
 );
 
-CREATE TABLE commentLike(
+CREATE TABLE commentLike (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     userId BIGINT NOT NULL,
     commentId BIGINT NOT NULL,
     createdAt timestamptz DEFAULT current_timestamp,
 
-    CONSTRAINT fk_comment_id_commentLike FOREIGN KEY (commentId) REFERENCES comment(id)
+    CONSTRAINT fk_comment_id_commentLike FOREIGN KEY (commentId) REFERENCES comment (id)
 );
 
-CREATE TABLE postLike(
+CREATE TABLE postLike (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
     postId BIGINT NOT NULL,
     userId BIGINT NOT NULL,
     createdAt timestamptz DEFAULT current_timestamp,
 
-    CONSTRAINT fk_post_id_postLike FOREIGN KEY (postId) REFERENCES post(id)
+    CONSTRAINT fk_post_id_postLike FOREIGN KEY (postId) REFERENCES post (id)
 );

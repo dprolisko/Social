@@ -16,7 +16,7 @@ public class CommentLikeProducer extends AbstractKafkaProducer<CommentLikeEvent>
     @Value("${spring.data.kafka.topics.topic-settings.comment-likes.name}")
     private String topic;
 
-    public CommentLikeProducer(KafkaTemplate<String, CommentLikeEvent> kafkaTemplate, Map<String, NewTopic> producerProps) {
+    public CommentLikeProducer(KafkaTemplate<String, Object> kafkaTemplate, Map<String, NewTopic> producerProps) {
         super(kafkaTemplate, producerProps);
     }
 

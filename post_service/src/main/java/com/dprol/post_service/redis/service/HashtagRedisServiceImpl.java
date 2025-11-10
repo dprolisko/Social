@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 
 public class HashtagRedisServiceImpl implements HashtagRedisService {
 
@@ -21,6 +20,11 @@ public class HashtagRedisServiceImpl implements HashtagRedisService {
 
     @Value("${spring.data.redis.cache.settings.max-hashtags-size}")
     private Long maxSize;
+
+    public HashtagRedisServiceImpl(RedisTemplate<String, PostHashtagDto> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        zSetOperations = redisTemplate.opsForZSet();
+    }
 
     @Override
     public void addHashtag(String hashtag, PostHashtagDto postHashtagDto) {

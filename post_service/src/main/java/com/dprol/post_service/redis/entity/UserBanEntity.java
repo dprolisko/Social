@@ -5,12 +5,8 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Builder
-@RedisHash("userBan")
 
 public class UserBanEntity implements RedisEvent {
 

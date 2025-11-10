@@ -11,7 +11,7 @@ import java.util.Map;
 
 public abstract class AbstractKafkaProducer<T extends KafkaEvent> implements KafkaProducer<T> {
 
-    private final KafkaTemplate<String, T> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     private final Map<String, NewTopic> producerProps;
 

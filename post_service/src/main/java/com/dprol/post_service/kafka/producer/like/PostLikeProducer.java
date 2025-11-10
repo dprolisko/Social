@@ -16,7 +16,7 @@ public class PostLikeProducer extends AbstractKafkaProducer<PostLikeEvent> {
     @Value("${spring.data.kafka.topics.topic-settings.post-likes.name}")
     private String topic;
 
-    public PostLikeProducer(KafkaTemplate<String, PostLikeEvent> kafkaTemplate, Map<String, NewTopic> producerProps) {
+    public PostLikeProducer(KafkaTemplate<String, Object> kafkaTemplate, Map<String, NewTopic> producerProps) {
         super(kafkaTemplate, producerProps);
     }
 

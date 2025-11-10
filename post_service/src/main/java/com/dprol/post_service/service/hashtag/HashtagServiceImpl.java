@@ -1,6 +1,5 @@
 package com.dprol.post_service.service.hashtag;
 
-import com.dprol.post_service.dto.HashtagDto;
 import com.dprol.post_service.dto.PostHashtagDto;
 import com.dprol.post_service.entity.Hashtag;
 import com.dprol.post_service.entity.Post;
@@ -41,7 +40,7 @@ public class HashtagServiceImpl implements HashtagService {
 
     @Override
     public void removeHashtag(String hashtag, PostHashtagDto PosthashtagDto) {
-        hashtagRepository.deleteHashtagAndPostId(hashtag, PosthashtagDto.getId());
+        hashtagRepository.deleteByHashtagAndPostId(hashtag, PosthashtagDto.getId());
     }
 
 

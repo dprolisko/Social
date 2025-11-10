@@ -35,8 +35,8 @@ public class RedisCacheConfig {
     @Bean
     public ExpirableLockRegistry expirableLockRegistry(RedisConnectionFactory redisConnectionFactory) {
 
-        return new RedisLockRegistry(redisConnectionFactory, redisLockRegistryProperty.getRedisHost(),
-                redisLockRegistryProperty.getRealiseTime());
+        return new RedisLockRegistry(redisConnectionFactory, redisLockRegistryProperty.getPostLockKey(),
+                redisLockRegistryProperty.getReleaseTimeDurationMillis());
     }
 
     @Bean

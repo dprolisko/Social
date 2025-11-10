@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentLikeRepository extends CrudRepository<CommentLike, Long> {
-
-    void deleteCommentIdAndUserId(Long commentId, Long userId);
 }

@@ -64,7 +64,7 @@ class HashtagServiceImplTest {
     void removeHashtag_ShouldCallRepositoryDelete() {
         hashtagService.removeHashtag("java", postHashtagDto);
 
-        verify(hashtagRepository).deleteHashtagAndPostId("java", 1L);
+        verify(hashtagRepository).deleteByHashtagAndPostId("java", 1L);
     }
 
     @Test

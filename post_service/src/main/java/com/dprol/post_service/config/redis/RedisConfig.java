@@ -1,5 +1,6 @@
 package com.dprol.post_service.config.redis;
 
+import com.dprol.post_service.dto.PostHashtagDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,5 +48,16 @@ public class RedisConfig {
         listeners.forEach(listener ->
                 container.addMessageListener(listener.getSecond(), listener.getFirst()));
         return container;
+    }
+
+    @Bean
+    public RedisTemplate<String, PostHashtagDto> hashtagRedisTemplate(JedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, PostHashtagDto> hashtagRedisTemplate = new RedisTemplate<>();
+        hashtagRedisTemplate.setConnectionFactory(connectionFactory);
+        hashtagRedisTemplate.setKeySerializer(new StringRedisSerializer());
+        hashtagRedisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        hashtagRedisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        hashtagRedisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return hashtagRedisTemplate;
     }
 }

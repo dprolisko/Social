@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 public class UserBanPublisher implements RedisPublisher<UserBanEntity> {
 
-    private final RedisTemplate<String, UserBanEntity> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Value("${spring.data.redis.channels.user_ban_channel.name}")
     private String topic;

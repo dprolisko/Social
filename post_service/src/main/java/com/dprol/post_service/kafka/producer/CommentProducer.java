@@ -15,7 +15,7 @@ public class CommentProducer extends AbstractKafkaProducer<CommentEvent>{
     @Value("${spring.data.kafka.topics.topic-settings.comments.name}")
     private String topic;
 
-    public CommentProducer(KafkaTemplate<String, CommentEvent> kafkaTemplate, Map<String, NewTopic> producerProps) {
+    public CommentProducer(KafkaTemplate<String, Object> kafkaTemplate, Map<String, NewTopic> producerProps) {
         super(kafkaTemplate, producerProps);
     }
 

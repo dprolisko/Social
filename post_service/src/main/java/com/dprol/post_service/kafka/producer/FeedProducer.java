@@ -12,7 +12,7 @@ public class FeedProducer extends AbstractKafkaProducer<Feed>{
     @Value("${spring.data.kafka.topics.topic-settings.feed-heater.name}")
     private String topic;
 
-    public FeedProducer(KafkaTemplate<String, Feed> kafkaTemplate, Map<String, NewTopic> producerProps) {
+    public FeedProducer(KafkaTemplate<String, Object> kafkaTemplate, Map<String, NewTopic> producerProps) {
         super(kafkaTemplate, producerProps);
     }
 

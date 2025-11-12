@@ -11,5 +11,5 @@ import java.util.stream.Stream;
 
 public interface AnalyticRepository extends JpaRepository<Analytic, Long> {
 
-    Stream<Analytic> findByReceiverId(Long receiverId, Type type);
+    Stream<Analytic> findByReceiverIdAndType(Long receiverId, Type type);
 }

@@ -142,20 +142,20 @@ class AchievementServiceImplTest {
 
     @Test
     void findAchievementByTitle_ShouldReturnDto_WhenFound() {
-        when(achievementRepository.findByAchievementTitle("Test")).thenReturn(Optional.of(achievement));
+        when(achievementRepository.findByTitle("Test")).thenReturn(Optional.of(achievement));
         when(achievementMapper.toDto(achievement)).thenReturn(achievementDto);
 
         AchievementDto result = service.findAchievementByTitle("Test");
 
         assertNotNull(result);
         assertEquals("Test", result.getTitle());
-        verify(achievementRepository).findByAchievementTitle("Test");
+        verify(achievementRepository).findByTitle("Test");
         verify(achievementMapper).toDto(achievement);
     }
 
     @Test
     void findAchievementByTitle_ShouldThrow_WhenNotFound() {
-        when(achievementRepository.findByAchievementTitle("Test")).thenReturn(Optional.empty());
+        when(achievementRepository.findByTitle("Test")).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class,
                 () -> service.findAchievementByTitle("Test"));

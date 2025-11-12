@@ -26,7 +26,7 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     @Override
     public List<AnalyticDto> getAllAnalytics(Long receiverId, Type type, Interval interval, LocalDateTime from, LocalDateTime to) {
-        Stream<Analytic> streamAnalytic = analyticRepository.findByReceiverId(receiverId, type);
+        Stream<Analytic> streamAnalytic = analyticRepository.findByReceiverIdAndType(receiverId, type);
         if (interval != null) {
             LocalDateTime date = Interval.toLocalDateTime(interval);
             streamAnalytic = streamAnalytic.filter(analytic -> analytic.getReceivedAt().isAfter(date));

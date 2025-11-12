@@ -3,9 +3,12 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: Postgres
+    password: postgres
 
   data:
+    kafka:
+      port: 9092
+      host: localhost
     redis:
       port: 6379
       host: localhost
@@ -20,7 +23,7 @@ spring:
         format_sql: true
 
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
+    change-log: classpath:changelog/db.changelog-master.yaml
 
 server:
   port: 8096
@@ -49,3 +52,7 @@ scheduler:
     cron: "0 0 0 * * ?"  # Launching every day at midnight
   generate:
     cron: "0 0 0/8 * * ?" # Every 8 hours
+
+user-service:
+  port: 8090
+  host: localhost

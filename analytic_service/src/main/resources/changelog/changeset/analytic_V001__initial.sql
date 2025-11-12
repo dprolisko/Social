@@ -4,5 +4,5 @@ CREATE TABLE analytic (
     author_id BIGINT NOT NULL,
     type VARCHAR NOT NULL,
     interval VARCHAR NOT NULL,
-    receiver_id timestamptz DEFAULT current_timestamp
+    receiver_at timestamptz DEFAULT current_timestamp
 );

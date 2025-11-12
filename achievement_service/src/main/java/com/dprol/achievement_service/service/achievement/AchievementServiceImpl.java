@@ -56,7 +56,7 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public AchievementDto findAchievementByTitle(String title) {
-        Achievement achievement = achievementRepository.findByAchievementTitle(title).orElseThrow(() -> new NotFoundException("Achievement Not Found"));
+        Achievement achievement = achievementRepository.findByTitle(title).orElseThrow(() -> new NotFoundException("Achievement Not Found"));
         return achievementMapper.toDto(achievement);
     }
 }
